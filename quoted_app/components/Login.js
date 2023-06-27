@@ -37,6 +37,7 @@ export default function Login() {
           quotes: [],
           likes: [],
           friends: [],
+          userName: "",
         });
       } catch (err) {
         console.log(`Error creating user: ${err}`);

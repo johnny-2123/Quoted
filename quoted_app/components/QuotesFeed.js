@@ -24,11 +24,15 @@ export default function QuotesFeed() {
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       setQuotes(
-        querySnapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-          timestamp: doc.data().createdAt.toDate().getTime(),
-        }))
+        querySnapshot.docs.map((doc) => {
+          const data = doc.data();
+          const createdAt = data.createdAt && data.createdAt.toDate().getTime();
+          return {
+            ...data,
+            id: doc.id,
+            timestamp: createdAt || 0,
+          };
+        })
       );
     });
 
