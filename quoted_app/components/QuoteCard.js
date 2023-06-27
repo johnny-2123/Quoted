@@ -29,9 +29,9 @@ export default function QuoteCard({ id, timestamp, text, author, usersLiked }) {
     };
 
     const fetchUsersLikedData = async () => {
-      usersLiked.map(async (user) => {
+      for (const [key, userRef] of Object.entries(usersLiked)) {
         try {
-          const usersLikedDoc = await getDoc(user);
+          const usersLikedDoc = await getDoc(userRef);
           if (usersLikedDoc.exists()) {
             setUsersLikedArray((prevArray) => [
               ...prevArray,
@@ -41,7 +41,7 @@ export default function QuoteCard({ id, timestamp, text, author, usersLiked }) {
         } catch (error) {
           console.log("Error fetching usersLiked data:", error);
         }
-      });
+      }
     };
     fetchAuthorData();
     fetchUsersLikedData();
@@ -52,7 +52,7 @@ export default function QuoteCard({ id, timestamp, text, author, usersLiked }) {
   const formattedTimestamp = new Date(timestamp).toLocaleString();
 
   return (
-    <div key={id} className="flex p-4 border border-gray-200 rounded">
+    <div key={id} className="flex p-4 border border-gray-200 rounded w-full">
       <div className="mr-4">
         <i className="fa-solid fa-user text-2xl"></i>
       </div>
@@ -61,7 +61,9 @@ export default function QuoteCard({ id, timestamp, text, author, usersLiked }) {
         <p className="text-gray-600">{text}</p>
         <div className="flex justify-between items-center mt-2">
           <p className="text-sm text-gray-400">{formattedTimestamp}</p>
-          <p className="text-sm text-gray-400">Likes: {usersLiked.length}</p>
+          <p className="text-sm text-gray-400">
+            Likes: {Object.keys(usersLiked).length}
+          </p>
         </div>
       </div>
     </div>
