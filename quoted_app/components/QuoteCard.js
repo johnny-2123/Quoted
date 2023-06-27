@@ -20,11 +20,21 @@ export default function QuoteCard({ id, timestamp, text, author, likes }) {
     fetchAuthorData();
   }, [author]);
 
+  const formattedTimestamp = new Date(timestamp).toLocaleString();
+
   return (
-    <div key={id}>
-      <h2>Quote</h2>
-      <p>{text}</p>
-      {authorData && <p>Author: {authorData.userName}</p>}
+    <div key={id} className="flex p-4 border border-gray-200 rounded">
+      <div className="mr-4">
+        <i className="fa-solid fa-user text-2xl"></i>
+      </div>
+      <div className="flex flex-col">
+        <p className="font-bold">{authorData?.userName}</p>
+        <p className="text-gray-600">{text}</p>
+        <div className="flex justify-between items-center mt-2">
+          <p className="text-sm text-gray-400">{formattedTimestamp}</p>
+          <p className="text-sm text-gray-400">Likes: {likes}</p>
+        </div>
+      </div>
     </div>
   );
 }
