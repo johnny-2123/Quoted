@@ -5,7 +5,7 @@ export default function Friends() {
   return (
     <>
       <div className="">
-        <h1>Friends</h1>
+        <h1 className="text-3xl py-2">Friends</h1>
       </div>
     </>
   );

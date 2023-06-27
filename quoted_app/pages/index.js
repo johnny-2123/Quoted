@@ -3,10 +3,11 @@ import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
 import Login from "@/components/Login";
 import QuotesFeed from "@/components/QuotesFeed";
+import { collection } from "firebase/firestore";
 
 export default function Home() {
   const { currentUser } = useAuth();
-  console.log(currentUser);
+  console.log(`currentUser`, currentUser);
 
   return (
     <>

@@ -1,7 +1,12 @@
 import React from "react";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Footer() {
+  const { currentUser } = useAuth();
+
+  if (!currentUser) return null;
+
   return (
     <div className="flex justify-center items-center gap-12 py-3 px-0 mx-0 text-2xl">
       <Link href={"/friends"}>
@@ -18,7 +23,7 @@ export default function Footer() {
         href={"/favorites"}
         className="duration-300 hover:opacity-30 cursor-pointer text-light"
       >
-        <i class="fa-regular fa-star duration-300 hover:opacity-30 cursor-pointer"></i>
+        <i class="fa-regular fa-star"></i>
       </Link>
       <Link
         href={"/user"}

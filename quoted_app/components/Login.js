@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { db } from "../firebase";
+import { doc, setDoc, deleteField } from "firebase/firestore";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -23,7 +25,25 @@ export default function Login() {
       }
       return;
     }
-    await signUp(email, password);
+    const newUserCredentials = await signUp(email, password);
+
+    if (newUserCredentials) {
+      try {
+        await setDoc(doc(db, "users", newUserCredentials.user.uid), {
+          email: newUserCredentials.user.email,
+          uid: newUserCredentials.user.uid,
+          profilePicture: "",
+          bio: "",
+          quotes: [],
+          likes: [],
+          friends: [],
+        });
+      } catch (err) {
+        console.log(`Error creating user: ${err}`);
+      }
+    }
+
+    console.log("newUserCredentials", newUserCredentials);
   }
 
   return (
