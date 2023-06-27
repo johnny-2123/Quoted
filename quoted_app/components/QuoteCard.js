@@ -5,16 +5,16 @@ import {
   onSnapshot,
   query,
   orderBy,
-  QuerySnapshot,
   getDoc,
+  getAll,
 } from "firebase/firestore";
 
 export default function QuoteCard({ id, timestamp, text, author, usersLiked }) {
   const [authorData, setAuthorData] = useState(null);
   const [usersLikedArray, setUsersLikedArray] = useState([]);
 
-  console.log(`author`, author);
-  console.log("likes", usersLiked);
+  //   console.log(`author`, author);
+  //   console.log("likes", usersLiked);
 
   useEffect(() => {
     const fetchAuthorData = async () => {
@@ -29,20 +29,16 @@ export default function QuoteCard({ id, timestamp, text, author, usersLiked }) {
     };
 
     const fetchUsersLikedData = async () => {
-      for (const [key, userRef] of Object.entries(usersLiked)) {
-        try {
-          const usersLikedDoc = await getDoc(userRef);
-          if (usersLikedDoc.exists()) {
-            setUsersLikedArray((prevArray) => [
-              ...prevArray,
-              usersLikedDoc.data(),
-            ]);
-          }
-        } catch (error) {
-          console.log("Error fetching usersLiked data:", error);
-        }
+      const userRefs = Object.values(usersLiked);
+      try {
+        const userDocs = await getAll(...userRefs);
+        const usersLikedData = userDocs.map((doc) => doc.data());
+        setUsersLikedArray(usersLikedData);
+      } catch (error) {
+        console.log("Error fetching usersLiked data:", error);
       }
     };
+
     fetchAuthorData();
     fetchUsersLikedData();
   }, [author]);
@@ -56,7 +52,7 @@ export default function QuoteCard({ id, timestamp, text, author, usersLiked }) {
       <div className="mr-4">
         <i className="fa-solid fa-user text-2xl"></i>
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col w-full">
         <p className="font-bold">{authorData?.userName}</p>
         <p className="text-gray-600">{text}</p>
         <div className="flex justify-between items-center mt-2">
