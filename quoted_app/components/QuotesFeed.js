@@ -9,9 +9,13 @@ import {
 } from "firebase/firestore";
 import { useAuth } from "@/context/AuthContext";
 import QuoteCard from "./QuoteCard";
+import NewQuoteBtn from "./NewQuoteBtn";
+import Modal from "./Modal";
 
 export default function QuotesFeed() {
   const [quotes, setQuotes] = useState([]);
+  const [hideTitle, setHideTitle] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     const collectionRef = collection(db, "quotes");
@@ -31,8 +35,6 @@ export default function QuotesFeed() {
     return unsubscribe;
   }, []);
 
-  console.log("quotes", quotes);
-
   const quoteCards = quotes.map((quote) => {
     return (
       <QuoteCard
@@ -46,9 +48,13 @@ export default function QuotesFeed() {
   });
 
   return (
-    <div>
-      <h1 className="text-3xl py-2">Quotes Feed</h1>
-      {quoteCards}
+    <div className="flex flex-col h-full">
+      <h1 className={`text-3xl py-2 transition-all duration-300 `}>
+        Quotes Feed
+      </h1>
+      <div className="overflow-y-scroll h-[calc(100vh-8rem)]">{quoteCards}</div>
+      <NewQuoteBtn setOpenModal={setOpenModal} />{" "}
+      {openModal && <Modal setOpenModal={setOpenModal} />}{" "}
     </div>
   );
 }
