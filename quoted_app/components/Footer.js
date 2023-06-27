@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <div className="flex justify-center items-center gap-3 py-3">
+    <div className="flex justify-center items-center gap-12 py-3 px-0 mx-0 text-2xl">
       <Link href={"/friends"}>
         <i className="fa-solid fa-users duration-300 hover:opacity-30 cursor-pointer text-light"></i>
       </Link>
