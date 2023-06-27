@@ -16,7 +16,7 @@ export default function Modal(props) {
     <div className="fixed w-screen h-screen top-0 left-0 bg-white text-slate-900 flex flex-col z-50 text-lg sm:text-xl">
       <div className="flex items-center justify-between border-b-2 border-solid border-slate-900 p-4 ">
         <h1 className="text-2xl sm:text-3xl select-none font-semibold">
-          New Tweet
+          New Quote
         </h1>
         <i
           className="fa-solid fa-xmark cursor-pointer duration-300 hover:rotate-90 text-2xl sm:text-3xl"
@@ -24,14 +24,7 @@ export default function Modal(props) {
         ></i>
       </div>
       <div className="p-4 flex flex-col gap-3">
-        <h2
-          onClick={() => {
-            setOpenModal(false);
-          }}
-          className="duration-300 hover:pl-2 cursor-pointer"
-        >
-          New Tweet
-        </h2>
+        <form></form>
       </div>
     </div>,
     document.getElementById("portal")

@@ -1,9 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { db } from "@/firebase";
-import { getDoc } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  QuerySnapshot,
+  getDoc,
+} from "firebase/firestore";
 
-export default function QuoteCard({ id, timestamp, text, author, likes }) {
+export default function QuoteCard({ id, timestamp, text, author, usersLiked }) {
   const [authorData, setAuthorData] = useState(null);
+  const [usersLikedArray, setUsersLikedArray] = useState([]);
+
+  console.log(`author`, author);
+  console.log("likes", usersLiked);
 
   useEffect(() => {
     const fetchAuthorData = async () => {
@@ -17,8 +28,26 @@ export default function QuoteCard({ id, timestamp, text, author, likes }) {
       }
     };
 
+    const fetchUsersLikedData = async () => {
+      usersLiked.map(async (user) => {
+        try {
+          const usersLikedDoc = await getDoc(user);
+          if (usersLikedDoc.exists()) {
+            setUsersLikedArray((prevArray) => [
+              ...prevArray,
+              usersLikedDoc.data(),
+            ]);
+          }
+        } catch (error) {
+          console.log("Error fetching usersLiked data:", error);
+        }
+      });
+    };
     fetchAuthorData();
+    fetchUsersLikedData();
   }, [author]);
+
+  console.log("usersLikedArray", usersLikedArray);
 
   const formattedTimestamp = new Date(timestamp).toLocaleString();
 
@@ -32,7 +61,7 @@ export default function QuoteCard({ id, timestamp, text, author, likes }) {
         <p className="text-gray-600">{text}</p>
         <div className="flex justify-between items-center mt-2">
           <p className="text-sm text-gray-400">{formattedTimestamp}</p>
-          <p className="text-sm text-gray-400">Likes: {likes}</p>
+          <p className="text-sm text-gray-400">Likes: {usersLiked.length}</p>
         </div>
       </div>
     </div>

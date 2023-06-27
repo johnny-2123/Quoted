@@ -42,7 +42,7 @@ export default function QuotesFeed() {
         author={quote.author}
         text={quote.text}
         timestamp={quote.timestamp}
-        likes={quote.likes}
+        usersLiked={quote.likes}
       />
     );
   });
