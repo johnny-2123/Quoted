@@ -9,12 +9,17 @@ import {
   getAll,
 } from "firebase/firestore";
 
-export default function QuoteCard({ id, timestamp, text, author, usersLiked }) {
+export default function QuoteCard({
+  id,
+  timestamp,
+  text,
+  author,
+  usersLiked,
+  currentUser,
+  openEditModal,
+}) {
   const [authorData, setAuthorData] = useState(null);
   const [usersLikedArray, setUsersLikedArray] = useState([]);
-
-  //   console.log(`author`, author);
-  //   console.log("likes", usersLiked);
 
   useEffect(() => {
     const fetchAuthorData = async () => {
@@ -43,9 +48,11 @@ export default function QuoteCard({ id, timestamp, text, author, usersLiked }) {
     fetchUsersLikedData();
   }, [author]);
 
-  console.log("usersLikedArray", usersLikedArray);
-
   const formattedTimestamp = new Date(timestamp).toLocaleString();
+
+  const handleEdit = () => {
+    openEditModal(id, text);
+  };
 
   return (
     <div key={id} className="flex p-4 border border-gray-200 rounded w-full">
@@ -61,6 +68,14 @@ export default function QuoteCard({ id, timestamp, text, author, usersLiked }) {
             Likes: {Object.keys(usersLiked).length}
           </p>
         </div>
+        {currentUser && authorData?.uid === currentUser.uid && (
+          <button
+            onClick={handleEdit}
+            className="mt-2 ml-auto text-gray-600 hover:text-gray-900"
+          >
+            <i className="fa-solid fa-pencil"></i> Edit
+          </button>
+        )}
       </div>
     </div>
   );

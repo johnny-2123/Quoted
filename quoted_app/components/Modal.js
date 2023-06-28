@@ -11,26 +11,43 @@ import {
 } from "firebase/firestore";
 
 export default function Modal(props) {
-  const { setOpenModal } = props;
+  const { setOpenModal, quoteId, quoteText, closeEditModal } = props;
   const { currentUser } = useAuth();
   const [_document, set_Document] = useState(null);
-  const [quoteText, setQuoteText] = useState("");
+  const [quoteContent, setQuoteContent] = useState(quoteText);
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     set_Document(document);
-  }, []);
+    setQuoteContent(quoteText);
+  }, [quoteText]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!quoteText) return;
+    if (!quoteContent) return;
 
     setLoading(true);
 
     try {
+      if (quoteId) {
+        await updateQuote(quoteId, quoteContent);
+        closeEditModal();
+      } else {
+        await addNewQuote();
+      }
+    } catch (error) {
+      console.log("Error adding/updating quote:", error);
+    } finally {
+      setLoading(false);
+      setOpenModal(false);
+    }
+  };
+
+  const addNewQuote = async () => {
+    try {
       const newQuoteRef = await addDoc(collection(db, "quotes"), {
-        text: quoteText,
+        text: quoteContent,
         author: doc(db, "users", currentUser.uid),
         createdAt: serverTimestamp(),
         likes: 0,
@@ -38,12 +55,14 @@ export default function Modal(props) {
       await updateQuoteField(currentUser.uid, newQuoteRef.id);
     } catch (error) {
       console.log("Error adding quote:", error);
-    } finally {
-      setLoading(false);
-      setOpenModal(false);
     }
+  };
 
-    setLoading(false);
+  const updateQuote = async (quoteId, updatedText) => {
+    const quoteRef = doc(db, "quotes", quoteId);
+    await updateDoc(quoteRef, {
+      text: updatedText,
+    });
   };
 
   const updateQuoteField = async (userId, quoteId) => {
@@ -59,7 +78,7 @@ export default function Modal(props) {
     <div className="fixed w-screen h-screen top-0 left-0 bg-white text-slate-900 flex flex-col z-50 text-lg sm:text-xl">
       <div className="flex items-center justify-between border-b-2 border-solid border-slate-900 p-4">
         <h1 className="text-2xl sm:text-3xl select-none font-semibold">
-          New Quote
+          {quoteId ? "Edit Quote" : "New Quote"}
         </h1>
         <i
           className="fa-solid fa-xmark cursor-pointer duration-300 hover:rotate-90 text-2xl sm:text-3xl"
@@ -69,8 +88,8 @@ export default function Modal(props) {
       <div className="p-4 flex flex-col gap-3">
         <form onSubmit={handleSubmit}>
           <textarea
-            value={quoteText}
-            onChange={(e) => setQuoteText(e.target.value)}
+            value={quoteContent}
+            onChange={(e) => setQuoteContent(e.target.value)}
             placeholder="Enter your quote..."
             className="p-2 border border-gray-300 rounded w-full"
             rows={4}
@@ -81,7 +100,7 @@ export default function Modal(props) {
             disabled={isLoading}
             className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-2 px-4 rounded transition-colors duration-300"
           >
-            {isLoading ? "Adding..." : "Add Quote"}
+            {isLoading ? "Saving..." : quoteId ? "Edit Quote" : "Add Quote"}
           </button>
         </form>
       </div>
