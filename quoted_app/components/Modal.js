@@ -12,6 +12,7 @@ import {
 
 export default function Modal(props) {
   const { setOpenModal, quoteId, quoteText, closeEditModal } = props;
+  console.log("quoteId", quoteId);
   const { currentUser } = useAuth();
   const [_document, set_Document] = useState(null);
   const [quoteContent, setQuoteContent] = useState(quoteText);

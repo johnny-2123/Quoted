@@ -20,6 +20,7 @@ export default function QuoteCard({
 }) {
   const [authorData, setAuthorData] = useState(null);
   const [usersLikedArray, setUsersLikedArray] = useState([]);
+  console.log("id in QuoteCard", id);
 
   useEffect(() => {
     const fetchAuthorData = async () => {
