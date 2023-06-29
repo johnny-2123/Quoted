@@ -4,10 +4,11 @@ import { useRouter } from "next/router";
 import QuoteCard from "@/components/QuoteCard";
 import Modal from "@/components/Modal";
 import useUserData from "@/hooks/useUserData";
+import EditUserForm from "@/components/EditUserForm";
 
 export default function User() {
   const router = useRouter();
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   const [editQuoteId, setEditQuoteId] = useState(null);
   const [editQuoteText, setEditQuoteText] = useState("");
   const [openModal, setOpenModal] = useState(false);
@@ -47,11 +48,16 @@ export default function User() {
       <div className="flex flex-col items-center gap-2 p-0">
         <div className="w-full flex flex-row items-center">
           <img
-            src="https://res.cloudinary.com/dkul3ouvi/image/upload/v1688003424/photo-1593085512500-5d55148d6f0d_zhgde7.jpg"
+            src={
+              "https://res.cloudinary.com/dkul3ouvi/image/upload/v1688003424/photo-1593085512500-5d55148d6f0d_zhgde7.jpg"
+            }
             className="w-[5rem] h-[5rem] rounded-full object-cover md:w-[4rem] md:h-[4rem] sm:w-[3rem] sm:h-[3rem]"
           />
 
-          <i className="fa-solid fa-user-pen ml-auto cursor-pointer duration-300 hover:text-gray-300"></i>
+          <i
+            className="fa-solid fa-user-pen ml-auto cursor-pointer duration-300 hover:text-gray-300"
+            onClick={() => setOpenModal(true)}
+          ></i>
         </div>
 
         <div className="flex flex-col items-start  w-full">
@@ -75,9 +81,9 @@ export default function User() {
       {openModal && (
         <Modal
           setOpenModal={setOpenModal}
-          quoteId={editQuoteId}
-          quoteText={editQuoteText}
+          contentComponent={EditUserForm}
           closeEditModal={closeEditModal}
+          userData={userData}
         />
       )}
     </div>
