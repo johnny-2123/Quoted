@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { db } from "@/firebase";
-import {
-  collection,
-  onSnapshot,
-  query,
-  orderBy,
-  getDoc,
-  getAll,
-} from "firebase/firestore";
+import { getDoc, getAll } from "firebase/firestore";
 
 export default function QuoteCard({
   id,
+  key,
   timestamp,
   text,
   author,
@@ -56,12 +50,22 @@ export default function QuoteCard({
   };
 
   return (
-    <div key={id} className="flex p-4 border border-gray-200 rounded w-full">
+    <div key={id} className="flex p-4 border-y border-gray-200 rounded w-full ">
       <div className="mr-4">
         <i className="fa-solid fa-user text-2xl"></i>
       </div>
       <div className="flex flex-col w-full">
-        <p className="font-bold">{authorData?.userName}</p>
+        <p className="font-bold w-full flex justify-between items-center content-center">
+          {authorData?.userName}{" "}
+          {currentUser && authorData?.uid === currentUser.uid && (
+            <button
+              onClick={handleEdit}
+              className="my-auto ml-auto text-gray-600 hover:text-gray-900"
+            >
+              <i className="fa-solid fa-pencil my-auto duration-300 hover:rotate-45"></i>
+            </button>
+          )}
+        </p>
         <p className="text-gray-600">{text}</p>
         <div className="flex justify-between items-center mt-2">
           <p className="text-sm text-gray-400">{formattedTimestamp}</p>
@@ -69,14 +73,6 @@ export default function QuoteCard({
             Likes: {Object.keys(usersLiked).length}
           </p>
         </div>
-        {currentUser && authorData?.uid === currentUser.uid && (
-          <button
-            onClick={handleEdit}
-            className="mt-2 ml-auto text-gray-600 hover:text-gray-900"
-          >
-            <i className="fa-solid fa-pencil"></i> Edit
-          </button>
-        )}
       </div>
     </div>
   );

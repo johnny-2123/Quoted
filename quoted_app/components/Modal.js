@@ -8,6 +8,8 @@ import {
   serverTimestamp,
   doc,
   updateDoc,
+  deleteDoc,
+  deleteField,
 } from "firebase/firestore";
 
 export default function Modal(props) {
@@ -51,7 +53,7 @@ export default function Modal(props) {
         text: quoteContent,
         author: doc(db, "users", currentUser.uid),
         createdAt: serverTimestamp(),
-        likes: 0,
+        likes: {},
       });
       await updateQuoteField(currentUser.uid, newQuoteRef.id);
     } catch (error) {
@@ -71,6 +73,20 @@ export default function Modal(props) {
     await updateDoc(userRef, {
       [`quotes.${quoteId}`]: doc(db, "quotes", quoteId),
     });
+  };
+
+  const deleteQuote = async (quoteId) => {
+    const quoteRef = doc(db, "quotes", quoteId);
+
+    await deleteDoc(quoteRef);
+
+    const userRef = doc(db, "users", currentUser.uid);
+    const userQuoteField = `quotes.${quoteId}`;
+    await updateDoc(userRef, {
+      [userQuoteField]: deleteField(),
+    });
+
+    closeEditModal();
   };
 
   if (!_document) return null;
@@ -99,11 +115,20 @@ export default function Modal(props) {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-2 px-4 rounded transition-colors duration-300"
+            className="w-full bg-light hover:bg-opacity-90 text-white py-2 px-4 rounded transition-colors duration-300"
           >
             {isLoading ? "Saving..." : quoteId ? "Edit Quote" : "Add Quote"}
           </button>
         </form>
+        {quoteId && (
+          <button
+            onClick={() => deleteQuote(quoteId)}
+            className="w-full bg-dark hover:bg-opacity-90
+text-white py-2 px-4 rounded transition-colors duration-300 mt-4"
+          >
+            Delete Quote
+          </button>
+        )}
       </div>
     </div>,
     document.getElementById("portal")

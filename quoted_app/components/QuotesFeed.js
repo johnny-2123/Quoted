@@ -59,6 +59,7 @@ export default function QuotesFeed() {
     return (
       <QuoteCard
         id={quote.id}
+        key={quote.id}
         author={quote.author}
         text={quote.text}
         timestamp={quote.timestamp}
