@@ -5,6 +5,7 @@ import QuoteCard from "@/components/QuoteCard";
 import Modal from "@/components/Modal";
 import useUserData from "@/hooks/useUserData";
 import EditUserForm from "@/components/EditUserForm";
+import AddEditQuote from "@/components/AddEditQuote";
 
 export default function User() {
   const router = useRouter();
@@ -12,6 +13,8 @@ export default function User() {
   const [editQuoteId, setEditQuoteId] = useState(null);
   const [editQuoteText, setEditQuoteText] = useState("");
   const [openModal, setOpenModal] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
+  const [quoteContent, setQuoteContent] = useState(null);
 
   const { userData, userQuotes } = useUserData(currentUser.uid);
 
@@ -19,6 +22,7 @@ export default function User() {
     setEditQuoteId(quoteId);
     setEditQuoteText(quoteText);
     setOpenModal(true);
+    setModalContent("quote");
   };
 
   const closeEditModal = () => {
@@ -28,7 +32,7 @@ export default function User() {
   };
 
   const quoteCards = userQuotes.map((quote) => {
-    console.log("quote", quote);
+    // console.log("quote", quote);
     return (
       <QuoteCard
         id={quote.id}
@@ -56,7 +60,10 @@ export default function User() {
 
           <i
             className="fa-solid fa-user-pen ml-auto cursor-pointer duration-300 hover:text-gray-300"
-            onClick={() => setOpenModal(true)}
+            onClick={() => {
+              setOpenModal(true);
+              setModalContent("user");
+            }}
           ></i>
         </div>
 
@@ -81,9 +88,15 @@ export default function User() {
       {openModal && (
         <Modal
           setOpenModal={setOpenModal}
-          contentComponent={EditUserForm}
+          contentComponent={
+            modalContent === "quote" ? AddEditQuote : EditUserForm
+          }
           closeEditModal={closeEditModal}
+          quoteId={editQuoteId}
+          quoteText={editQuoteText}
           userData={userData}
+          quoteContent={quoteContent}
+          setQuoteContent={setQuoteContent}
         />
       )}
     </div>

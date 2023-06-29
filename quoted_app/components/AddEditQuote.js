@@ -21,6 +21,7 @@ export default function AddEditQuote({
 }) {
   const { currentUser } = useAuth();
   const [loading, setLoading] = useState(false);
+  console.log("quoteText in AddEditQuote", quoteText);
 
   useEffect(() => {
     setQuoteContent(quoteText);
