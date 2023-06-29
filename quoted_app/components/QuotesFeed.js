@@ -1,46 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { db } from "@/firebase";
-import {
-  collection,
-  onSnapshot,
-  query,
-  orderBy,
-  QuerySnapshot,
-} from "firebase/firestore";
+import { collection, query, orderBy } from "firebase/firestore";
 import { useAuth } from "@/context/AuthContext";
 import QuoteCard from "./QuoteCard";
 import NewQuoteBtn from "./NewQuoteBtn";
 import Modal from "./Modal";
+import useQuotes from "@/hooks/useQuotes";
 
 export default function QuotesFeed() {
   const { currentUser } = useAuth();
-  const [quotes, setQuotes] = useState([]);
-  const [hideTitle, setHideTitle] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
-  const [editQuoteId, setEditQuoteId] = useState(null);
-  const [editQuoteText, setEditQuoteText] = useState("");
 
-  useEffect(() => {
-    const collectionRef = collection(db, "quotes");
+  const [openModal, setOpenModal] = React.useState(false);
+  const [editQuoteId, setEditQuoteId] = React.useState(null);
+  const [editQuoteText, setEditQuoteText] = React.useState("");
 
-    const q = query(collectionRef, orderBy("createdAt", "desc"));
+  const collectionRef = collection(db, "quotes");
+  const q = query(collectionRef, orderBy("createdAt", "desc"));
 
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      setQuotes(
-        querySnapshot?.docs?.map((doc) => {
-          const data = doc.data();
-          const createdAt = data.createdAt && data.createdAt.toDate().getTime();
-          return {
-            ...data,
-            id: doc.id,
-            timestamp: createdAt || 0,
-          };
-        })
-      );
-    });
-
-    return unsubscribe;
-  }, []);
+  const quotes = useQuotes(q);
 
   const openEditModal = (quoteId, quoteText) => {
     setEditQuoteId(quoteId);
@@ -54,21 +31,18 @@ export default function QuotesFeed() {
     setOpenModal(false);
   };
 
-  const quoteCards = quotes.map((quote) => {
-    console.log("quote", quote);
-    return (
-      <QuoteCard
-        id={quote.id}
-        key={quote.id}
-        author={quote.author}
-        text={quote.text}
-        timestamp={quote.timestamp}
-        usersLiked={quote.likes}
-        currentUser={currentUser}
-        openEditModal={openEditModal}
-      />
-    );
-  });
+  const quoteCards = quotes.map((quote) => (
+    <QuoteCard
+      id={quote.id}
+      key={quote.id}
+      author={quote.author}
+      text={quote.text}
+      timestamp={quote.timestamp}
+      usersLiked={quote.likes}
+      currentUser={currentUser}
+      openEditModal={openEditModal}
+    />
+  ));
 
   return (
     <div className="flex flex-col h-full overflow-auto">

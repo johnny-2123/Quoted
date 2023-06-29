@@ -59,16 +59,16 @@ export default function QuoteCard({
           {currentUser && authorData?.uid === currentUser.uid && (
             <button
               onClick={handleEdit}
-              className="my-auto ml-auto text-gray-600 hover:text-gray-900"
+              className="my-auto ml-auto text-slate-800 hover:text-gray-900"
             >
               <i className="fa-solid fa-pencil my-auto duration-300 hover:rotate-45"></i>
             </button>
           )}
         </p>
-        <p className="text-gray-600">{text}</p>
+        <p className="text-slate-900">{text}</p>
         <div className="flex justify-between items-center mt-2 mr-1">
-          <p className="text-sm text-gray-400">{formattedTimestamp}</p>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-slate-500">{formattedTimestamp}</p>
+          <p className="text-sm text-slate-500">
             <i className="fa-regular fa-heart"></i>{" "}
             {Object.keys(usersLiked).length}
           </p>

@@ -14,6 +14,8 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 import QuoteCard from "@/components/QuoteCard";
+import Modal from "@/components/Modal";
+import useQuotes from "@/hooks/useQuotes";
 
 export default function User() {
   const router = useRouter();
@@ -26,6 +28,10 @@ export default function User() {
   const [userQuotes, setUserQuotes] = useState([]);
   console.log(`userQuotes`, userQuotes);
   const { logout } = useAuth();
+  const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
+  const [editQuoteId, setEditQuoteId] = useState(null);
+  const [editQuoteText, setEditQuoteText] = useState("");
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     const docRef = doc(db, "users", currentUser.uid);
@@ -49,7 +55,18 @@ export default function User() {
         where(documentId(), "in", userQuoteUIDs)
       );
       unsubscribeQuotes = onSnapshot(quotesQuery, (snapshot) => {
-        setUserQuotes(snapshot.docs.map((doc) => doc.data()));
+        setUserQuotes(
+          snapshot?.docs?.map((doc) => {
+            const data = doc.data();
+            const createdAt =
+              data.createdAt && data.createdAt.toDate().getTime();
+            return {
+              ...data,
+              id: doc.id,
+              timestamp: createdAt || 0,
+            };
+          })
+        );
       });
     }
 
@@ -69,13 +86,14 @@ export default function User() {
   };
 
   const quoteCards = userQuotes.map((quote) => {
+    console.log("quote", quote);
     return (
       <QuoteCard
-        key={quote.id}
         id={quote.id}
-        timestamp={quote.timestamp}
-        text={quote.text}
+        key={quote.id}
         author={quote.author}
+        text={quote.text}
+        timestamp={quote.timestamp}
         usersLiked={quote.likes}
         currentUser={currentUser}
         openEditModal={openEditModal}
@@ -97,7 +115,7 @@ export default function User() {
 
         <div className="flex flex-col items-start  w-full">
           <h1 className="text-xl font-bold">{userData?.userName}</h1>
-          <p className="text-sm text-gray-400">{userData?.bio}</p>
+          <p className="text-sm text-slate-900">{userData?.bio}</p>
         </div>
       </div>
       <div className="py-2 w-full text-end">
@@ -113,6 +131,14 @@ export default function User() {
         </button>
       </div>
       <div className="flex-grow overflow-y-scroll">{quoteCards}</div>
+      {openModal && (
+        <Modal
+          setOpenModal={setOpenModal}
+          quoteId={editQuoteId}
+          quoteText={editQuoteText}
+          closeEditModal={closeEditModal}
+        />
+      )}
     </div>
   );
 }
