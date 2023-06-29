@@ -86,47 +86,8 @@ export default function EditUserForm({ closeEditModal, userData }) {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col justify-center">
       <div className="mb-4">
-        <label htmlFor="username" className="block mb-1">
-          Username:
-        </label>
-        <input
-          type="text"
-          id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="border border-gray-300 rounded px-2 py-1 w-full"
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="email" className="block mb-1">
-          Email:
-        </label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="border border-gray-300 rounded px-2 py-1 w-full"
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="profilePicture" className="block mb-1">
-          Profile Picture URL:
-        </label>
-        <input
-          type="text"
-          id="profilePicture"
-          value={profilePicture || genericProfilePicture}
-          onChange={(e) => setProfilePicture(e.target.value)}
-          className="border border-gray-300 rounded px-2 py-1 w-full"
-          required
-        />
-      </div>
-      <div className="mb-4">
         <label htmlFor="profilePictureFile" className="block mb-1">
-          Profile Picture File:
+          Profile Picture
         </label>
         <div
           style={{
@@ -136,7 +97,7 @@ export default function EditUserForm({ closeEditModal, userData }) {
             position: "relative",
             borderRadius: "50%",
           }}
-          className="border border-gray-300 rounded px-2 py-1 h-[5rem] w-[5rem]"
+          className="border border-gray-300 rounded px-2 py-1 h-[6rem] w-[6rem] text-center flex items-center justify-center"
         >
           <input
             type="file"
@@ -152,8 +113,49 @@ export default function EditUserForm({ closeEditModal, userData }) {
             className="border border-gray-300 rounded"
             onChange={(e) => setImageUpload(e.target.files[0])}
           ></input>
+          <i class="fa-solid fa-plus my-auto text-5xl text-white opacity-60 "></i>
         </div>
       </div>
+      <div className="mb-4">
+        <label htmlFor="username" className="block mb-1">
+          Username
+        </label>
+        <input
+          type="text"
+          id="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="border border-gray-300 rounded px-2 py-1 w-full"
+          required
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="email" className="block mb-1">
+          Email
+        </label>
+        <input
+          type="email"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="border border-gray-300 rounded px-2 py-1 w-full"
+          required
+        />
+      </div>
+      {/* <div className="mb-4">
+        <label htmlFor="profilePicture" className="block mb-1">
+          Profile Picture URL:
+        </label>
+        <input
+          type="text"
+          id="profilePicture"
+          value={profilePicture || genericProfilePicture}
+          onChange={(e) => setProfilePicture(e.target.value)}
+          className="border border-gray-300 rounded px-2 py-1 w-full"
+          required
+        />
+      </div> */}
+
       <button
         type="submit"
         className="w-full bg-light hover:bg-opacity-90 text-white py-2 px-4 rounded transition-colors duration-300"
