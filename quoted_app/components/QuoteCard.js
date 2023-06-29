@@ -13,7 +13,8 @@ export default function QuoteCard({
 }) {
   const [authorData, setAuthorData] = useState(null);
   const [usersLikedArray, setUsersLikedArray] = useState([]);
-  // console.log("id in QuoteCard", id);
+  const defaultProfilePicture =
+    "https://res.cloudinary.com/dkul3ouvi/image/upload/v1688073928/39013954-f5091c3a-43e6-11e8-9cac-37cf8e8c8e4e_iwci96.jpg";
 
   useEffect(() => {
     const fetchAuthorData = async () => {
@@ -49,13 +50,17 @@ export default function QuoteCard({
   };
 
   return (
-    <div key={id} className="flex p-4 border-y border-gray-200 rounded w-full ">
-      <div className="mr-4">
-        <i className="fa-solid fa-user text-2xl"></i>
-      </div>
-      <div className="flex flex-col w-full">
+    <div
+      key={id}
+      className="flex py-4 pl-1 pr-4 border-y border-gray-200 rounded w-full "
+    >
+      <img
+        src={`${authorData?.profilePicture || defaultProfilePicture}`}
+        className="w-[5rem] h-[5rem] rounded-full object-cover md:w-[4rem] md:h-[4rem] sm:w-[3rem] sm:h-[3rem] m-0 mr-2"
+      />
+      <div className="flex flex-col flex-grow">
         <p className="font-bold w-full flex justify-between items-center content-center">
-          {authorData?.userName}{" "}
+          {authorData?.userName}
           {currentUser && authorData?.uid === currentUser.uid && (
             <button
               onClick={handleEdit}

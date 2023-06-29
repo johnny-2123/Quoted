@@ -8,8 +8,6 @@ import {
   documentId,
   where,
 } from "firebase/firestore";
-import { storage } from "../firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default function useUserData(uid) {
   const [userData, setUserData] = useState(null);

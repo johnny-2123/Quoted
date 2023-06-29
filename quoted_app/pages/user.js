@@ -16,7 +16,10 @@ export default function User() {
   const [modalContent, setModalContent] = useState(null);
   const [quoteContent, setQuoteContent] = useState(null);
 
-  const { userData, userQuotes } = useUserData(currentUser.uid);
+  const { userData, userQuotes } = useUserData(currentUser?.uid);
+
+  const defaultProfilePicture =
+    "https://res.cloudinary.com/dkul3ouvi/image/upload/v1688073928/39013954-f5091c3a-43e6-11e8-9cac-37cf8e8c8e4e_iwci96.jpg";
 
   const openEditModal = (quoteId, quoteText) => {
     setEditQuoteId(quoteId);
@@ -47,17 +50,16 @@ export default function User() {
     );
   });
 
+  if (!userData) return null;
+
   return (
     <div className="flex flex-col overflow-hidden">
       <div className="flex flex-col items-center gap-2 p-0">
         <div className="w-full flex flex-row items-center">
           <img
-            src={
-              "https://res.cloudinary.com/dkul3ouvi/image/upload/v1688003424/photo-1593085512500-5d55148d6f0d_zhgde7.jpg"
-            }
+            src={`${userData?.profilePicture || defaultProfilePicture}`}
             className="w-[5rem] h-[5rem] rounded-full object-cover md:w-[4rem] md:h-[4rem] sm:w-[3rem] sm:h-[3rem]"
           />
-
           <i
             className="fa-solid fa-user-pen ml-auto cursor-pointer duration-300 hover:text-gray-300"
             onClick={() => {
