@@ -4,7 +4,6 @@ import { getDoc, getAll } from "firebase/firestore";
 
 export default function QuoteCard({
   id,
-  key,
   timestamp,
   text,
   author,
@@ -14,7 +13,7 @@ export default function QuoteCard({
 }) {
   const [authorData, setAuthorData] = useState(null);
   const [usersLikedArray, setUsersLikedArray] = useState([]);
-  console.log("id in QuoteCard", id);
+  // console.log("id in QuoteCard", id);
 
   useEffect(() => {
     const fetchAuthorData = async () => {
@@ -28,19 +27,19 @@ export default function QuoteCard({
       }
     };
 
-    const fetchUsersLikedData = async () => {
-      const userRefs = Object.values(usersLiked);
-      try {
-        const userDocs = await getAll(...userRefs);
-        const usersLikedData = userDocs.map((doc) => doc.data());
-        setUsersLikedArray(usersLikedData);
-      } catch (error) {
-        console.log("Error fetching usersLiked data:", error);
-      }
-    };
+    // const fetchUsersLikedData = async () => {
+    //   const userRefs = Object.values(usersLiked);
+    //   try {
+    //     const userDocs = await getAll(...userRefs);
+    //     const usersLikedData = userDocs.map((doc) => doc.data());
+    //     setUsersLikedArray(usersLikedData);
+    //   } catch (error) {
+    //     console.log("Error fetching usersLiked data:", error);
+    //   }
+    // };
 
     fetchAuthorData();
-    fetchUsersLikedData();
+    // fetchUsersLikedData();
   }, [author]);
 
   const formattedTimestamp = new Date(timestamp).toLocaleString();
@@ -70,7 +69,8 @@ export default function QuoteCard({
         <div className="flex justify-between items-center mt-2 mr-1">
           <p className="text-sm text-gray-400">{formattedTimestamp}</p>
           <p className="text-sm text-gray-400">
-            <i class="fa-regular fa-heart"></i> {Object.keys(usersLiked).length}
+            <i className="fa-regular fa-heart"></i>{" "}
+            {Object.keys(usersLiked).length}
           </p>
         </div>
       </div>

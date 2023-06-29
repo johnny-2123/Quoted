@@ -6,7 +6,7 @@ import { doc, setDoc } from "firebase/firestore";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userName, setUserName] = useState(""); // Add userName state
+  const [userName, setUserName] = useState("");
   const [error, setError] = useState(null);
   const [isLoggingIn, setIsLoggingIn] = useState(true);
   console.log("isLoggingIn", isLoggingIn);
@@ -14,9 +14,8 @@ export default function Login() {
   console.log(currentUser);
 
   async function submitHandler() {
-    if (!email || !password || !userName) {
-      // Validate userName
-      setError("Please enter email, password, and username"); // Update error message
+    if (!isLoggingIn && (!email || !password || !userName)) {
+      setError("Please enter email, password, and username");
       return;
     }
     if (isLoggingIn) {
@@ -36,10 +35,10 @@ export default function Login() {
           uid: newUserCredentials.user.uid,
           profilePicture: "",
           bio: "",
-          quotes: [],
-          likes: [],
-          friends: [],
-          userName: userName, // Add userName to the document
+          quotes: {},
+          likes: {},
+          friends: {},
+          userName: userName,
         });
       } catch (err) {
         console.log(`Error creating user: ${err}`);
@@ -78,7 +77,7 @@ export default function Login() {
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
           type="text"
-          placeholder="Username" // Add userName input field
+          placeholder="Username"
           className="outline-none text-slate-900 p-2 w-full max-w-[40ch] duration-300 border-b-2 border-solid border-white focus:border-cyan-300"
         />
       )}

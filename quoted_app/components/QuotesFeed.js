@@ -55,7 +55,7 @@ export default function QuotesFeed() {
   };
 
   const quoteCards = quotes.map((quote) => {
-    console.log("quote", quote);
+    // console.log("quote", quote);
     return (
       <QuoteCard
         id={quote.id}

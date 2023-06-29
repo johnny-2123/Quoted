@@ -13,23 +13,23 @@ export default function Footer() {
         <i className="fa-solid fa-users duration-300 hover:opacity-30 cursor-pointer text-light"></i>
       </Link>
       <Link href={"/likes"}>
-        <i class="fa-regular fa-heart duration-300 hover:opacity-30 cursor-pointer text-light"></i>
+        <i className="fa-regular fa-heart duration-300 hover:opacity-30 cursor-pointer text-light"></i>
       </Link>
       <Link href={"/"} className="duration-300 hover:opacity-30 cursor-pointer">
-        <i class="fa-solid fa-quote-left   text-light"></i>
-        <i class="fa-solid fa-quote-right  text-light"></i>
+        <i className="fa-solid fa-quote-left   text-light"></i>
+        <i className="fa-solid fa-quote-right  text-light"></i>
       </Link>
       <Link
         href={"/favorites"}
         className="duration-300 hover:opacity-30 cursor-pointer text-light"
       >
-        <i class="fa-regular fa-star"></i>
+        <i className="fa-regular fa-star"></i>
       </Link>
       <Link
         href={"/user"}
         className="duration-300 hover:opacity-30 cursor-pointer text-light"
       >
-        <i class="fa-solid fa-user"></i>
+        <i className="fa-solid fa-user"></i>
       </Link>
     </div>
   );
