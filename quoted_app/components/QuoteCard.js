@@ -67,10 +67,10 @@ export default function QuoteCard({
           )}
         </p>
         <p className="text-gray-600">{text}</p>
-        <div className="flex justify-between items-center mt-2">
+        <div className="flex justify-between items-center mt-2 mr-1">
           <p className="text-sm text-gray-400">{formattedTimestamp}</p>
           <p className="text-sm text-gray-400">
-            Likes: {Object.keys(usersLiked).length}
+            <i class="fa-regular fa-heart"></i> {Object.keys(usersLiked).length}
           </p>
         </div>
       </div>
