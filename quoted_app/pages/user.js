@@ -91,6 +91,7 @@ export default function User() {
           contentComponent={
             modalContent === "quote" ? AddEditQuote : EditUserForm
           }
+          title={modalContent === "quote" ? "Edit Quote" : "Edit Profile"}
           closeEditModal={closeEditModal}
           quoteId={editQuoteId}
           quoteText={editQuoteText}
