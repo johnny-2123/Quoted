@@ -55,7 +55,7 @@ export default function QuotesFeed() {
   };
 
   const quoteCards = quotes.map((quote) => {
-    // console.log("quote", quote);
+    console.log("quote", quote);
     return (
       <QuoteCard
         id={quote.id}
@@ -71,11 +71,11 @@ export default function QuotesFeed() {
   });
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full overflow-auto">
       <h1 className={`text-3xl py-2 transition-all duration-300 `}>
         Quotes Feed
       </h1>
-      <div className="overflow-y-scroll h-[calc(100vh-8rem)]">{quoteCards}</div>
+      <div className="flex-grow overflow-y-scroll">{quoteCards}</div>
       <NewQuoteBtn setOpenModal={setOpenModal} />
       {openModal && (
         <Modal
