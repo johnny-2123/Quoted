@@ -1,77 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { db } from "@/firebase";
-import {
-  collection,
-  onSnapshot,
-  query,
-  orderBy,
-  QuerySnapshot,
-  doc,
-  documentId,
-  Firestore,
-  where,
-} from "firebase/firestore";
+import React, { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 import QuoteCard from "@/components/QuoteCard";
 import Modal from "@/components/Modal";
-import useQuotes from "@/hooks/useQuotes";
+import useUserData from "@/hooks/useUserData";
 
 export default function User() {
   const router = useRouter();
   const { currentUser } = useAuth();
-  console.log(`currentUser`, currentUser);
-  const [userData, setUserData] = useState(null);
-  console.log(`userData`, userData);
-  const [userQuoteUIDs, setUserQuoteUIDs] = useState([]);
-  console.log(`userQuoteUIDs`, userQuoteUIDs);
-  const [userQuotes, setUserQuotes] = useState([]);
-  console.log(`userQuotes`, userQuotes);
-  const { logout } = useAuth();
-  const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
   const [editQuoteId, setEditQuoteId] = useState(null);
   const [editQuoteText, setEditQuoteText] = useState("");
   const [openModal, setOpenModal] = useState(false);
 
-  useEffect(() => {
-    const docRef = doc(db, "users", currentUser.uid);
-
-    const unsubscribe = onSnapshot(docRef, (doc) => {
-      if (doc.exists()) {
-        setUserData(doc.data());
-        const userQuoteUIDs = Object.keys(doc.data().quotes);
-        setUserQuoteUIDs(userQuoteUIDs);
-      }
-    });
-
-    return unsubscribe;
-  }, []);
-
-  useEffect(() => {
-    let unsubscribeQuotes = () => {};
-    if (userQuoteUIDs.length > 0) {
-      const quotesQuery = query(
-        collection(db, "quotes"),
-        where(documentId(), "in", userQuoteUIDs)
-      );
-      unsubscribeQuotes = onSnapshot(quotesQuery, (snapshot) => {
-        setUserQuotes(
-          snapshot?.docs?.map((doc) => {
-            const data = doc.data();
-            const createdAt =
-              data.createdAt && data.createdAt.toDate().getTime();
-            return {
-              ...data,
-              id: doc.id,
-              timestamp: createdAt || 0,
-            };
-          })
-        );
-      });
-    }
-
-    return unsubscribeQuotes;
-  }, [userQuoteUIDs]);
+  const { userData, userQuotes } = useUserData(currentUser.uid);
 
   const openEditModal = (quoteId, quoteText) => {
     setEditQuoteId(quoteId);
