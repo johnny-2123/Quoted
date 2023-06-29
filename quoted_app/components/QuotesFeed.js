@@ -6,6 +6,7 @@ import QuoteCard from "./QuoteCard";
 import NewQuoteBtn from "./NewQuoteBtn";
 import Modal from "./Modal";
 import useQuotes from "@/hooks/useQuotes";
+import AddEditQuote from "./AddEditQuote";
 
 export default function QuotesFeed() {
   const { currentUser } = useAuth();
@@ -13,6 +14,7 @@ export default function QuotesFeed() {
   const [openModal, setOpenModal] = React.useState(false);
   const [editQuoteId, setEditQuoteId] = React.useState(null);
   const [editQuoteText, setEditQuoteText] = React.useState("");
+  const [quoteContent, setQuoteContent] = React.useState("");
 
   const collectionRef = collection(db, "quotes");
   const q = query(collectionRef, orderBy("createdAt", "desc"));
@@ -54,9 +56,13 @@ export default function QuotesFeed() {
       {openModal && (
         <Modal
           setOpenModal={setOpenModal}
+          title={editQuoteId ? "Edit Quote" : "New Quote"}
+          contentComponent={AddEditQuote}
           quoteId={editQuoteId}
           quoteText={editQuoteText}
           closeEditModal={closeEditModal}
+          setQuoteContent={setQuoteContent}
+          quoteContent={quoteContent}
         />
       )}
     </div>
