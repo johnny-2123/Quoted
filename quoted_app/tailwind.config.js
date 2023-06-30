@@ -40,9 +40,6 @@ module.exports = {
       xs: { max: "479px" },
       xxs: { max: "360px" },
     },
-    maxHeight: {
-      vh: "var(--viewport-height)",
-    },
   },
   plugins: [],
 };
