@@ -96,6 +96,8 @@ export default function User() {
           title={modalContent === "quote" ? "Edit Quote" : "Edit Profile"}
           closeEditModal={closeEditModal}
           quoteId={editQuoteId}
+          setEditQuoteId={setEditQuoteId}
+          setEditQuoteText={setEditQuoteText}
           quoteText={editQuoteText}
           userData={userData}
           quoteContent={quoteContent}

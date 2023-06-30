@@ -13,7 +13,9 @@ import {
 
 export default function AddEditQuote({
   quoteId,
+  setEditQuoteId,
   quoteText,
+  setEditQuoteText,
   closeEditModal,
   setQuoteContent,
   quoteContent,
@@ -24,6 +26,12 @@ export default function AddEditQuote({
 
   useEffect(() => {
     setQuoteContent(quoteText);
+
+    return () => {
+      setQuoteContent("");
+      setEditQuoteId(null);
+      setEditQuoteText("");
+    };
   }, [quoteText]);
 
   const handleSubmit = async (e) => {

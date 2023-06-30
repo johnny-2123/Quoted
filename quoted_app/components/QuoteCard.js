@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { db } from "@/firebase";
 import { getDoc, getAll } from "firebase/firestore";
+import { updateDoc, doc, deleteField } from "firebase/firestore";
 
 export default function QuoteCard({
   id,
@@ -12,7 +13,7 @@ export default function QuoteCard({
   openEditModal,
 }) {
   const [authorData, setAuthorData] = useState(null);
-  const [usersLikedArray, setUsersLikedArray] = useState([]);
+  const [userLikedQuote, setUserLikedQuote] = useState(false);
   const defaultProfilePicture =
     "https://res.cloudinary.com/dkul3ouvi/image/upload/v1688073928/39013954-f5091c3a-43e6-11e8-9cac-37cf8e8c8e4e_iwci96.jpg";
 
@@ -28,25 +29,56 @@ export default function QuoteCard({
       }
     };
 
-    // const fetchUsersLikedData = async () => {
-    //   const userRefs = Object.values(usersLiked);
-    //   try {
-    //     const userDocs = await getAll(...userRefs);
-    //     const usersLikedData = userDocs.map((doc) => doc.data());
-    //     setUsersLikedArray(usersLikedData);
-    //   } catch (error) {
-    //     console.log("Error fetching usersLiked data:", error);
-    //   }
-    // };
+    const fetchUsersLikedData = async () => {
+      if (currentUser.uid in usersLiked) {
+        setUserLikedQuote(true);
+      } else {
+        setUserLikedQuote(false);
+      }
+    };
 
     fetchAuthorData();
-    // fetchUsersLikedData();
-  }, [author]);
+    fetchUsersLikedData();
+  }, [author, usersLiked, currentUser]);
 
   const formattedTimestamp = new Date(timestamp).toLocaleString();
 
   const handleEdit = () => {
     openEditModal(id, text);
+  };
+
+  const handleLike = async () => {
+    if (!currentUser) return;
+    const userRef = doc(db, "users", currentUser.uid);
+    const quoteRef = doc(db, "quotes", id);
+
+    try {
+      if (userLikedQuote) {
+        // Unlike the quote
+        await updateDoc(userRef, {
+          [`likes.${id}`]: deleteField(),
+        });
+
+        await updateDoc(quoteRef, {
+          [`likes.${currentUser.uid}`]: deleteField(),
+        });
+
+        setUserLikedQuote(false);
+      } else {
+        // Like the quote
+        await updateDoc(userRef, {
+          [`likes.${id}`]: quoteRef,
+        });
+
+        await updateDoc(quoteRef, {
+          [`likes.${currentUser.uid}`]: userRef,
+        });
+
+        setUserLikedQuote(true);
+      }
+    } catch (error) {
+      console.log("Error toggling like:", error);
+    }
   };
 
   return (
@@ -74,8 +106,12 @@ export default function QuoteCard({
         <div className="flex justify-between items-center mt-2 mr-1">
           <p className="text-sm text-slate-500">{formattedTimestamp}</p>
           <p className="text-sm text-slate-500">
-            <i className="fa-regular fa-heart"></i>{" "}
-            {Object.keys(usersLiked).length}
+            {userLikedQuote ? (
+              <i className="fa-solid fa-heart" onClick={handleLike}></i>
+            ) : (
+              <i className="fa-regular fa-heart" onClick={handleLike}></i>
+            )}
+            {Object.keys(usersLiked)?.length}
           </p>
         </div>
       </div>

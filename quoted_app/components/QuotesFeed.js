@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { db } from "@/firebase";
 import { collection, query, orderBy } from "firebase/firestore";
 import { useAuth } from "@/context/AuthContext";
@@ -21,11 +21,11 @@ export default function QuotesFeed() {
 
   const quotes = useQuotes(q);
 
-  const openEditModal = (quoteId, quoteText) => {
+  const openEditModal = useCallback((quoteId, quoteText) => {
     setEditQuoteId(quoteId);
     setEditQuoteText(quoteText);
     setOpenModal(true);
-  };
+  }, []);
 
   const closeEditModal = () => {
     setEditQuoteId(null);
@@ -59,7 +59,9 @@ export default function QuotesFeed() {
           title={editQuoteId ? "Edit Quote" : "New Quote"}
           contentComponent={AddEditQuote}
           quoteId={editQuoteId}
+          setEditQuoteId={setEditQuoteId}
           quoteText={editQuoteText}
+          setEditQuoteText={setEditQuoteText}
           closeEditModal={closeEditModal}
           setQuoteContent={setQuoteContent}
           quoteContent={quoteContent}
