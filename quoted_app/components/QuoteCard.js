@@ -3,6 +3,7 @@ import { db } from "@/firebase";
 import { getDoc, getAll } from "firebase/firestore";
 import { updateDoc, doc, deleteField } from "firebase/firestore";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function QuoteCard({
   id,
@@ -101,6 +102,13 @@ export default function QuoteCard({
         href={`/profile/${authorData?.uid}`}
         className="p-0 m-0 mr-3 w-[4rem] h-[4rem] min-w-[35px] min-h-[35px] max-w-[40px] max-h-[40px]"
       >
+        {/* <Image
+          src={authorData?.profilePicture}
+          alt="Profile Picture"
+          width={120} // Specify width
+          height={120} // Specify height
+          className="rounded-full object-cover"
+        /> */}
         <img
           src={`${authorData?.profilePicture || defaultProfilePicture}`}
           className="rounded-full object-cover min-w-[35px] min-h-[35px] max-w-[40px] max-h-[40px]"
