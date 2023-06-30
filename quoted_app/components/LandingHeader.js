@@ -4,8 +4,8 @@ import AnimatedText from "./AnimatedText";
 
 const LandingHeader = () => {
   return (
-    <div className="flex flex-col items-center justify-center mt-2">
-      <h1 className="text-4xl font-normal text-center xs:!my-[1.75rem] lg:!mb-[1.5rem]">
+    <div className="flex flex-col items-center justify-center mt-[2rem] text-slate-800">
+      <h1 className="text-4xl font-bold text-center xs:!my-[1.75rem] lg:!mb-[1.5rem]">
         <motion.i
           className="fa-solid fa-quote-left mr-1 text-dark"
           initial={{ opacity: 0, y: -20 }}

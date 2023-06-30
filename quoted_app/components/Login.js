@@ -53,7 +53,7 @@ export default function Login() {
   return (
     <div className="flex-1 text-xs sm:text-sm flex flex-col justify-start items-center gap-2 sm:gap-4">
       <LandingHeader />
-      <h1 className="font-normal select-none text-2xl sm:text-2xl uppercase border-t border-slate-500 pt-[1.2rem] w-[40%] text-center ">
+      <h1 className="font-bold select-none text-4xl sm:text-2xl uppercase text-slate-800 border-t border-slate-500 pt-[1.2rem] w-[40%] text-center ">
         {isLoggingIn ? "Login" : "Register"}
       </h1>
       {error && (

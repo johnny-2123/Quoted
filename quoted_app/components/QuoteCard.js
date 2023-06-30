@@ -90,8 +90,8 @@ export default function QuoteCard({
         src={`${authorData?.profilePicture || defaultProfilePicture}`}
         className="rounded-full object-cover w-[3rem] h-[3rem] m-0 mr-2"
       />
-      <div className="flex flex-col flex-grow">
-        <p className="font-bold w-full flex justify-between items-center content-center text-xs sm:text-md xs:text-lg ">
+      <div className="flex flex-col flex-grow text-xs sm:text-md xs:text-lg">
+        <p className="font-bold w-full flex justify-between items-center content-center text-sm lg:text-base">
           {authorData?.userName}
           {currentUser && authorData?.uid === currentUser.uid && (
             <button
@@ -102,7 +102,7 @@ export default function QuoteCard({
             </button>
           )}
         </p>
-        <p className="text-slate-900 text-xs sm:text-md xs:text-lg">{text}</p>
+        <p className="text-sm lg:text-base text-slate-900">{text}</p>
         <div className="flex justify-between items-center mt-2 mr-0 sm:text-sm lg:text-xs">
           <p className=" text-slate-500">{formattedTimestamp}</p>
           <p className=" text-slate-500">

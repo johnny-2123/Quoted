@@ -95,7 +95,7 @@ export default function EditUserForm({ closeEditModal, userData }) {
       <div className="mb-4">
         <div
           style={{
-            backgroundImage: `url(${fireStoreImage})`,
+            backgroundImage: `url(${fireStoreImage || genericProfilePicture})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             position: "relative",
@@ -121,7 +121,7 @@ export default function EditUserForm({ closeEditModal, userData }) {
                 setImageUpload(e.target.files[0]);
               }}
             />
-            <i className="fa-solid fa-plus my-auto text-5xl text-white opacity-60"></i>
+            <i className="fa-solid fa-plus my-auto text-5xl text-slate opacity-60"></i>
           </label>
         </div>
       </div>
