@@ -16,10 +16,13 @@ export default function EditUserForm({ closeEditModal, userData }) {
   // console.log("currentUser", currentUser.uid);
   const [username, setUsername] = useState(userData.userName);
   const [email, setEmail] = useState(userData.email);
-  const [profilePicture, setProfilePicture] = useState(userData.profilePicture);
   const [imageUpload, setImageUpload] = useState(null);
   const [fireStoreImage, setFireStoreImage] = useState([]);
   const [bio, setBio] = useState(userData.bio);
+  const [previewImage, setPreviewImage] = useState(
+    userData.profilePicture || genericProfilePicture
+  );
+  const [loading, setLoading] = useState(false);
   // console.log("fireStoreImage", fireStoreImage);
 
   const genericProfilePicture =
@@ -44,6 +47,7 @@ export default function EditUserForm({ closeEditModal, userData }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
     try {
       let newProfilePicture = fireStoreImage;
       if (imageUpload) {
@@ -57,11 +61,14 @@ export default function EditUserForm({ closeEditModal, userData }) {
         bio: bio,
       });
 
+      setPreviewImage(newProfilePicture);
+
       closeEditModal();
     } catch (error) {
       console.log("Error updating user:", error);
     } finally {
       //success notification
+      setLoading(false);
     }
   };
 
@@ -95,7 +102,7 @@ export default function EditUserForm({ closeEditModal, userData }) {
       <div className="mb-4">
         <div
           style={{
-            backgroundImage: `url(${fireStoreImage || genericProfilePicture})`,
+            backgroundImage: `url(${previewImage})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             position: "relative",
@@ -117,7 +124,8 @@ export default function EditUserForm({ closeEditModal, userData }) {
               }}
               className="border border-gray-300 rounded"
               onChange={(e) => {
-                setFireStoreImage(URL.createObjectURL(e.target.files[0]));
+                const newImageURL = URL.createObjectURL(e.target.files[0]);
+                setPreviewImage(newImageURL);
                 setImageUpload(e.target.files[0]);
               }}
             />
@@ -166,8 +174,9 @@ export default function EditUserForm({ closeEditModal, userData }) {
       <button
         type="submit"
         className="w-full bg-light hover:bg-opacity-90 text-white py-2 px-4 rounded-[20px] transition-colors duration-300"
+        disabled={loading}
       >
-        Save Changes
+        {loading ? "Loading..." : "Save Changes"}
       </button>
     </form>
   );

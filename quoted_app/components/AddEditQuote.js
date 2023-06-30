@@ -112,16 +112,18 @@ export default function AddEditQuote({
         <button
           type="submit"
           className="w-full bg-light hover:bg-opacity-90 text-white py-2 px-4 rounded-[20px]  transition-colors duration-300"
+          disabled={loading}
         >
-          {quoteId ? "Edit Quote" : "Add Quote"}
+          {loading ? "Loading..." : quoteId ? "Edit Quote" : "Add Quote"}
         </button>
       </form>
       {quoteId && (
         <button
           onClick={() => deleteQuote(quoteId)}
           className="w-full bg-dark hover:bg-opacity-90 text-white py-2 px-4 rounded-[20px] transition-colors duration-300 mt-4"
+          disabled={loading}
         >
-          Delete Quote
+          {loading ? "Deleting..." : "Delete Quote"}
         </button>
       )}
     </div>
