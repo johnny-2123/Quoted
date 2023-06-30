@@ -20,7 +20,7 @@ export default function useQuotes(query) {
     });
 
     return unsubscribe;
-  }, [query]);
+  }, []);
 
   return quotes;
 }
