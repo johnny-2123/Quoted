@@ -7,6 +7,7 @@ import useUserData from "@/hooks/useUserData";
 import EditUserForm from "@/components/EditUserForm";
 import AddEditQuote from "@/components/AddEditQuote";
 import { Redirect } from "next/router";
+import { Image } from "next/image";
 
 export default function User() {
   const router = useRouter();
@@ -18,7 +19,6 @@ export default function User() {
   const [quoteContent, setQuoteContent] = useState(null);
 
   const { userData, userQuotes } = useUserData(currentUser?.uid);
-
 
   const defaultProfilePicture =
     "https://res.cloudinary.com/dkul3ouvi/image/upload/v1688073928/39013954-f5091c3a-43e6-11e8-9cac-37cf8e8c8e4e_iwci96.jpg";
@@ -61,6 +61,7 @@ export default function User() {
           <img
             src={`${userData?.profilePicture || defaultProfilePicture}`}
             className="rounded-full object-cover w-[3rem] h-[3rem]"
+            alt="profile picture"
           />
           <i
             className="fa-solid fa-user-pen ml-auto cursor-pointer duration-300 hover:opacity-70 sm:text-lg mr-2"
@@ -97,7 +98,7 @@ export default function User() {
           quoteCards
         ) : (
           <p className="h-[50vh] flex items-center justify-center">
-            You haven't posted any quotes yet :/
+            You haven&apos;t posted any quotes yet :/
           </p>
         )}
       </div>
