@@ -10,6 +10,7 @@ import {
   deleteDoc,
   deleteField,
 } from "firebase/firestore";
+import { toast, Slide } from "react-toastify";
 
 export default function AddEditQuote({
   quoteId,
@@ -34,6 +35,22 @@ export default function AddEditQuote({
     };
   }, [quoteText]);
 
+  const notifyOnSuccess = (message) => {
+    toast.success(`Quote ${message} succesfully`, {
+      transition: Slide,
+      autoClose: 2000,
+      hideProgressBar: true,
+    });
+  };
+
+  const notifyOnError = (message) => {
+    toast.error(`Error ${message} quote`, {
+      transition: Slide,
+      autoClose: 2000,
+      hideProgressBar: true,
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -50,9 +67,20 @@ export default function AddEditQuote({
       }
     } catch (error) {
       console.log("Error adding/updating quote:", error);
+      if (quoteId) {
+        notifyOnError("updating");
+      } else {
+        notifyOnError("adding");
+      }
     } finally {
       setLoading(false);
       setOpenModal(false);
+
+      if (quoteId) {
+        notifyOnSuccess("updated");
+      } else {
+        notifyOnSuccess("added");
+      }
     }
   };
 

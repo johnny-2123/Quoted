@@ -41,7 +41,17 @@ export default function QuoteCard({
     fetchUsersLikedData();
   }, [author, usersLiked, currentUser]);
 
-  const formattedTimestamp = new Date(timestamp).toLocaleString();
+  const formattedTimestamp =
+    new Date(timestamp).toLocaleDateString("en-US", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "2-digit",
+    }) +
+    " " +
+    new Date(timestamp).toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
 
   const handleEdit = () => {
     openEditModal(id, text);

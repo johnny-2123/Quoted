@@ -10,6 +10,7 @@ import {
   listAll,
   list,
 } from "firebase/storage";
+import { toast, Slide } from "react-toastify";
 
 export default function EditUserForm({ closeEditModal, userData }) {
   const { currentUser } = useAuth();
@@ -19,16 +20,34 @@ export default function EditUserForm({ closeEditModal, userData }) {
   const [imageUpload, setImageUpload] = useState(null);
   const [fireStoreImage, setFireStoreImage] = useState([]);
   const [bio, setBio] = useState(userData.bio);
-  const [previewImage, setPreviewImage] = useState(
-    userData.profilePicture || genericProfilePicture
-  );
+
   const [loading, setLoading] = useState(false);
   // console.log("fireStoreImage", fireStoreImage);
 
   const genericProfilePicture =
     "https://res.cloudinary.com/dkul3ouvi/image/upload/v1688073928/39013954-f5091c3a-43e6-11e8-9cac-37cf8e8c8e4e_iwci96.jpg";
 
+  const [previewImage, setPreviewImage] = useState(
+    userData.profilePicture || genericProfilePicture
+  );
+
   const imageRef = ref(storage, `images/${currentUser.uid}`);
+
+  const notifyOnSuccess = () => {
+    toast.success("Profile updated successfully", {
+      transition: Slide,
+      autoClose: 2000,
+      hideProgressBar: true,
+    });
+  };
+
+  const notifyOnError = () => {
+    toast.error("Error updating profile", {
+      transition: Slide,
+      autoClose: 2000,
+      hideProgressBar: true,
+    });
+  };
 
   useEffect(() => {
     const fetchProfilePicture = async () => {
@@ -66,9 +85,10 @@ export default function EditUserForm({ closeEditModal, userData }) {
       closeEditModal();
     } catch (error) {
       console.log("Error updating user:", error);
+      notifyOnError();
     } finally {
-      //success notification
       setLoading(false);
+      notifyOnSuccess();
     }
   };
 
@@ -84,13 +104,11 @@ export default function EditUserForm({ closeEditModal, userData }) {
       console.log("downloadURL", downloadURL);
       setFireStoreImage(downloadURL);
 
-      console.log("Image uploaded successfully");
-      // alert("Image uploaded successfully");
+      // console.log("Image uploaded successfully");
 
       return downloadURL;
     } catch (error) {
-      console.log("Error uploading image:", error);
-      // alert("Error uploading image");
+      // console.log("Error uploading image:", error);
     }
   };
 
