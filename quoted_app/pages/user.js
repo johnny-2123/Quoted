@@ -19,9 +19,6 @@ export default function User() {
 
   const { userData, userQuotes } = useUserData(currentUser?.uid);
 
-  // if (!currentUser) {
-  //   return <Redirect to="/login" />;
-  // }
 
   const defaultProfilePicture =
     "https://res.cloudinary.com/dkul3ouvi/image/upload/v1688073928/39013954-f5091c3a-43e6-11e8-9cac-37cf8e8c8e4e_iwci96.jpg";

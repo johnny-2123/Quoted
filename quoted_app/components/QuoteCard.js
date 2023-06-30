@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { db } from "@/firebase";
 import { getDoc, getAll } from "firebase/firestore";
 import { updateDoc, doc, deleteField } from "firebase/firestore";
+import Link from "next/link";
 
 export default function QuoteCard({
   id,
@@ -92,17 +93,22 @@ export default function QuoteCard({
   };
 
   return (
-    <div
-      key={id}
-      className="flex py-4 pl-1 pr-4 border-y border-gray-200 rounded w-full "
-    >
-      <img
-        src={`${authorData?.profilePicture || defaultProfilePicture}`}
-        className="rounded-full object-cover w-[3rem] h-[3rem] m-0 mr-2"
-      />
+    <div className="flex py-4 pl-1 pr-4 border-y border-gray-200 rounded w-full">
+      <Link
+        href={`/profile/${authorData?.uid}`}
+        className="p-0 m-0 mr-2  min-w-[20px] min-h-[20px]  w-[4rem] h-[4rem] max-w-[40px] max-h-[40px]"
+      >
+        <img
+          src={`${authorData?.profilePicture || defaultProfilePicture}`}
+          className="rounded-full object-cover min-w-[20px] min-h-[20px]  w-[4rem] h-[4rem] max-w-[40px] max-h-[40px]"
+          alt="Profile Picture"
+        />
+      </Link>
       <div className="flex flex-col flex-grow text-xs sm:text-md xs:text-lg">
-        <p className="font-bold w-full flex justify-between items-center content-center text-sm lg:text-base">
-          {authorData?.userName}
+        <div className="flex justify-between items-center">
+          <p className="font-bold text-sm lg:text-base">
+            {authorData?.userName}
+          </p>
           {currentUser && authorData?.uid === currentUser.uid && (
             <button
               onClick={handleEdit}
@@ -111,24 +117,21 @@ export default function QuoteCard({
               <i className="fa-solid fa-pencil my-auto duration-300 hover:rotate-45"></i>
             </button>
           )}
-        </p>
-        <p className="text-sm lg:text-base text-slate-900">{text}</p>
-        <div className="flex justify-between items-center mt-2 mr-0 sm:text-sm lg:text-xs">
-          <p className=" text-slate-500">{formattedTimestamp}</p>
-          <p className=" text-slate-500">
-            {userLikedQuote ? (
-              <i
-                className="fa-solid fa-heart mr-1 cursor-pointer "
-                onClick={handleLike}
-              ></i>
-            ) : (
-              <i
-                className="fa-regular fa-heart mr-1 cursor-pointer"
-                onClick={handleLike}
-              ></i>
-            )}
-            {Object.keys(usersLiked)?.length}
-          </p>
+        </div>
+        <p className="text-sm lg:text-base text-slate-900 text-start">{text}</p>
+        <div className="flex justify-between items-center mt-2 sm:text-sm lg:text-xs">
+          <div className="flex items-center">
+            <i
+              className={`${
+                userLikedQuote
+                  ? "fa-solid fa-heart mr-1 cursor-pointer"
+                  : "fa-regular fa-heart mr-1 cursor-pointer"
+              }`}
+              onClick={handleLike}
+            ></i>
+            <p className="text-slate-500">{Object.keys(usersLiked)?.length}</p>
+          </div>
+          <p className="text-slate-500">{formattedTimestamp}</p>
         </div>
       </div>
     </div>

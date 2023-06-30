@@ -11,9 +11,8 @@ export default function Login() {
   const [userName, setUserName] = useState("");
   const [error, setError] = useState(null);
   const [isLoggingIn, setIsLoggingIn] = useState(true);
-  console.log("isLoggingIn", isLoggingIn);
   const { login, signUp, currentUser } = useAuth();
-  console.log(currentUser);
+  // console.log(currentUser);
 
   async function submitHandler() {
     if (!isLoggingIn && (!email || !password || !userName)) {
@@ -43,11 +42,9 @@ export default function Login() {
           userName: userName,
         });
       } catch (err) {
-        console.log(`Error creating user: ${err}`);
+        // console.log(`Error creating user: ${err}`);
       }
     }
-
-    console.log("newUserCredentials", newUserCredentials);
   }
 
   return (
