@@ -76,9 +76,11 @@ export default function User() {
 
         <div className="flex flex-col items-start w-full text-xs sm:text-md xs:text-lg">
           <h1 className="text-sm lg:text-base font-bold">
-            {userData?.userName}
+            {userData?.userName || "Username"}
           </h1>
-          <p className="text-sm lg:text-base text-slate-900">{userData?.bio}</p>
+          <p className="text-sm lg:text-base text-slate-900">
+            {userData?.bio || "Bio"}
+          </p>
         </div>
       </div>
       <div className="my-1 w-full text-end text-sm lg:text-base">
@@ -93,7 +95,15 @@ export default function User() {
           Logout
         </button>
       </div>
-      <div className="flex-grow overflow-y-scroll">{quoteCards}</div>
+      <div className="flex-grow overflow-y-scroll">
+        {quoteCards.length > 0 ? (
+          quoteCards
+        ) : (
+          <p className="h-[50vh] flex items-center justify-center">
+            You haven't posted any quotes yet :/
+          </p>
+        )}
+      </div>
       {openModal && (
         <Modal
           setOpenModal={setOpenModal}
