@@ -15,6 +15,8 @@ export default function useUserData(uid) {
   const [userQuotes, setUserQuotes] = useState([]);
 
   useEffect(() => {
+    if (!uid) return;
+
     const docRef = doc(db, "users", uid);
 
     const unsubscribe = onSnapshot(docRef, (doc) => {

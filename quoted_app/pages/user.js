@@ -6,6 +6,7 @@ import Modal from "@/components/Modal";
 import useUserData from "@/hooks/useUserData";
 import EditUserForm from "@/components/EditUserForm";
 import AddEditQuote from "@/components/AddEditQuote";
+import { Redirect } from "next/router";
 
 export default function User() {
   const router = useRouter();
@@ -17,6 +18,10 @@ export default function User() {
   const [quoteContent, setQuoteContent] = useState(null);
 
   const { userData, userQuotes } = useUserData(currentUser?.uid);
+
+  // if (!currentUser) {
+  //   return <Redirect to="/login" />;
+  // }
 
   const defaultProfilePicture =
     "https://res.cloudinary.com/dkul3ouvi/image/upload/v1688073928/39013954-f5091c3a-43e6-11e8-9cac-37cf8e8c8e4e_iwci96.jpg";

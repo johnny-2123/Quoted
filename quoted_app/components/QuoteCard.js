@@ -30,7 +30,7 @@ export default function QuoteCard({
     };
 
     const fetchUsersLikedData = async () => {
-      if (currentUser.uid in usersLiked) {
+      if (currentUser?.uid in usersLiked) {
         setUserLikedQuote(true);
       } else {
         setUserLikedQuote(false);
@@ -49,7 +49,7 @@ export default function QuoteCard({
 
   const handleLike = async () => {
     if (!currentUser) return;
-    const userRef = doc(db, "users", currentUser.uid);
+    const userRef = doc(db, "users", currentUser?.uid);
     const quoteRef = doc(db, "quotes", id);
 
     try {
