@@ -1,12 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@layer components {
-  .layout-main {
-    max-height: var(--vh);
-  }
-}
-
+@import "./custom.css";
 * {
   font-family: "Montserrat", sans-serif;
 }
