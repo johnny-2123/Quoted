@@ -1,15 +1,29 @@
 import React from "react";
+import { motion } from "framer-motion";
+import AnimatedText from "./AnimatedText";
 
 const LandingHeader = () => {
   return (
-    <div className="flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-md text-center xs:!my-[3rem] lg:!my-[1.5rem]">
-        Quoted <i class="fa-solid fa-quote-left mr-1 text-dark"></i>
-        <i class="fa-solid fa-quote-right text-light    "></i>
+    <div className="flex flex-col items-center justify-center mt-2">
+      <h1 className="text-4xl font-normal text-center xs:!my-[1.75rem] lg:!mb-[1.5rem]">
+        <motion.i
+          className="fa-solid fa-quote-left mr-1 text-dark"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        ></motion.i>
+        Quoted{" "}
+        <motion.i
+          className="fa-solid fa-quote-right text-light"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        ></motion.i>
       </h1>
-      <h2 className="text-2xl font-md text-center lg:mb-[2rem]">
-        A social media platform for sharing quotes
-      </h2>
+      <AnimatedText
+        text="A social media platform for sharing quotes"
+        className="text-xl font-normal text-center xs:!mb-[1.2rem] lg:!mb-[.5rem]"
+      />
     </div>
   );
 };
