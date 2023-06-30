@@ -99,7 +99,7 @@ export default function AddEditQuote({
   };
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 text-xs sm:text-md xs:text-lg">
       <form onSubmit={handleSubmit}>
         <textarea
           value={quoteContent}

@@ -91,7 +91,7 @@ export default function QuoteCard({
         className="rounded-full object-cover w-[3rem] h-[3rem] m-0 mr-2"
       />
       <div className="flex flex-col flex-grow">
-        <p className="font-bold w-full flex justify-between items-center content-center xl:xs sm:md">
+        <p className="font-bold w-full flex justify-between items-center content-center text-xs sm:text-md xs:text-lg ">
           {authorData?.userName}
           {currentUser && authorData?.uid === currentUser.uid && (
             <button
@@ -102,14 +102,20 @@ export default function QuoteCard({
             </button>
           )}
         </p>
-        <p className="text-slate-900 sm:text-md lg:text-xs">{text}</p>
-        <div className="flex justify-between items-center mt-2 mr-0 sm:text-md lg:text-xs">
+        <p className="text-slate-900 text-xs sm:text-md xs:text-lg">{text}</p>
+        <div className="flex justify-between items-center mt-2 mr-0 sm:text-sm lg:text-xs">
           <p className=" text-slate-500">{formattedTimestamp}</p>
           <p className=" text-slate-500">
             {userLikedQuote ? (
-              <i className="fa-solid fa-heart mr-1 " onClick={handleLike}></i>
+              <i
+                className="fa-solid fa-heart mr-1 cursor-pointer "
+                onClick={handleLike}
+              ></i>
             ) : (
-              <i className="fa-regular fa-heart mr-1" onClick={handleLike}></i>
+              <i
+                className="fa-regular fa-heart mr-1 cursor-pointer"
+                onClick={handleLike}
+              ></i>
             )}
             {Object.keys(usersLiked)?.length}
           </p>

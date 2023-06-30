@@ -50,8 +50,8 @@ export default function QuotesFeed() {
     <div className="flex flex-col h-full overflow-auto">
       <h1 className={`text-3xl py-2 transition-all duration-300 `}>
         {" "}
-        Quotes <i class="fa-solid fa-quote-left text-dark mr-1"></i>
-        <i class="fa-solid fa-quote-right text-dark"></i>
+        Quoted <i class="fa-solid fa-quote-left text-dark mr-1"></i>
+        <i class="fa-solid fa-quote-right text-light"></i>
       </h1>
       <div className="flex-grow overflow-y-scroll">{quoteCards}</div>
       <NewQuoteBtn setOpenModal={setOpenModal} />

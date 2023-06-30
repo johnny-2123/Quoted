@@ -88,7 +88,10 @@ export default function EditUserForm({ closeEditModal, userData }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col justify-center">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col justify-center text-xs sm:text-md xs:text-lg"
+    >
       <div className="mb-4">
         <div
           style={{

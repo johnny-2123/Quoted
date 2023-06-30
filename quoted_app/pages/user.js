@@ -61,7 +61,7 @@ export default function User() {
             className="rounded-full object-cover w-[3rem] h-[3rem]"
           />
           <i
-            className="fa-solid fa-user-pen ml-auto cursor-pointer duration-300 hover:text-gray-300"
+            className="fa-solid fa-user-pen ml-auto cursor-pointer duration-300 hover:opacity-70 sm:text-lg mr-2"
             onClick={() => {
               setOpenModal(true);
               setModalContent("user");
@@ -70,18 +70,22 @@ export default function User() {
         </div>
 
         <div className="flex flex-col items-start w-full">
-          <h1 className="xl:xs sm:md font-bold">{userData?.userName}</h1>
-          <p className="xl:xs sm:md text-slate-900">{userData?.bio}</p>
+          <h1 className="text-xs sm:text-md xs:text-lg font-bold">
+            {userData?.userName}
+          </h1>
+          <p className="text-xs sm:text-md xs:text-lg  text-slate-900">
+            {userData?.bio}
+          </p>
         </div>
       </div>
-      <div className="py-2 w-full text-end">
+      <div className="py-1 w-full text-end">
         <button
           type="button"
           onClick={() => {
             logout();
             router.push("/");
           }}
-          className="duration-300 hover:pl-2 cursor-pointer bg-dark text-white rounded-[20px] px-4 py-1"
+          className="duration-300 hover:scale-[90%] cursor-pointer bg-dark text-white rounded-[20px] px-4 py-1 text-xs sm:text-md xs:text-lg "
         >
           Logout
         </button>
