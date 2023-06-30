@@ -51,7 +51,7 @@ export default function ViewProfile() {
           quoteCards
         ) : (
           <p className="h-[50vh] flex items-center justify-center">
-            This user hasn't posted any quotes yet.
+            This user hasn&apos;t posted any quotes yet.
           </p>
         )}
       </div>
