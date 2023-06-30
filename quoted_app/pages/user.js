@@ -81,8 +81,8 @@ export default function User() {
       <div className="py-1 w-full text-end">
         <button
           type="button"
-          onClick={() => {
-            logout();
+          onClick={async () => {
+            await logout();
             router.push("/");
           }}
           className="duration-300 hover:scale-[90%] cursor-pointer bg-dark text-white rounded-[20px] px-4 py-1 text-xs sm:text-md xs:text-lg "
