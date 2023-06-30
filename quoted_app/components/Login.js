@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
+import LandingHeader from "./LandingHeader";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -49,7 +50,8 @@ export default function Login() {
   }
 
   return (
-    <div className="flex-1 text-xs sm:text-sm flex flex-col justify-center items-center gap-2 sm:gap-4">
+    <div className="flex-1 text-xs sm:text-sm flex flex-col justify-start items-center gap-2 sm:gap-4">
+      <LandingHeader />
       <h1 className="font-extrabold select-none text-2xl sm:text-4xl uppercase">
         {isLoggingIn ? "Login" : "Register"}
       </h1>

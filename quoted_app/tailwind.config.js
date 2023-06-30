@@ -19,7 +19,7 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        background: "#F7F3EE",
+        background: "#F7F3EE opacity-90",
         primaryLight: "#30AEBE",
         primaryDark: "#BE4030",
         dark: "#BE4030",
@@ -28,15 +28,10 @@ module.exports = {
     },
     screens: {
       "2xl": { max: "1535px" },
-
       xl: { max: "1279px" },
-
       lg: { max: "1023px" },
-
       md: { max: "767px" },
-
       sm: { max: "639px" },
-
       xs: { max: "479px" },
       xxs: { max: "360px" },
     },

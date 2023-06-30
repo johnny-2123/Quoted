@@ -19,6 +19,7 @@ export default function EditUserForm({ closeEditModal, userData }) {
   const [profilePicture, setProfilePicture] = useState(userData.profilePicture);
   const [imageUpload, setImageUpload] = useState(null);
   const [fireStoreImage, setFireStoreImage] = useState([]);
+  const [bio, setBio] = useState(userData.bio);
   // console.log("fireStoreImage", fireStoreImage);
 
   const genericProfilePicture =
@@ -53,6 +54,7 @@ export default function EditUserForm({ closeEditModal, userData }) {
         userName: username,
         email: email,
         profilePicture: newProfilePicture,
+        bio: bio,
       });
 
       closeEditModal();
@@ -146,9 +148,21 @@ export default function EditUserForm({ closeEditModal, userData }) {
           required
         />
       </div>
+      <div className="mb-4">
+        <label htmlFor="bio" className="block mb-1">
+          Bio
+        </label>
+        <textarea
+          id="bio"
+          value={bio}
+          onChange={(e) => setBio(e.target.value)}
+          className="border border-gray-300 rounded px-2 py-1 w-full"
+          rows={4}
+        />
+      </div>
       <button
         type="submit"
-        className="w-full bg-light hover:bg-opacity-90 text-white py-2 px-4 rounded transition-colors duration-300"
+        className="w-full bg-light hover:bg-opacity-90 text-white py-2 px-4 rounded-[20px] transition-colors duration-300"
       >
         Save Changes
       </button>

@@ -88,10 +88,10 @@ export default function QuoteCard({
     >
       <img
         src={`${authorData?.profilePicture || defaultProfilePicture}`}
-        className="w-[5rem] h-[5rem] rounded-full object-cover md:w-[4rem] md:h-[4rem] sm:w-[3rem] sm:h-[3rem] m-0 mr-2"
+        className="rounded-full object-cover w-[3rem] h-[3rem] m-0 mr-2"
       />
       <div className="flex flex-col flex-grow">
-        <p className="font-bold w-full flex justify-between items-center content-center">
+        <p className="font-bold w-full flex justify-between items-center content-center xl:xs sm:md">
           {authorData?.userName}
           {currentUser && authorData?.uid === currentUser.uid && (
             <button
@@ -102,14 +102,14 @@ export default function QuoteCard({
             </button>
           )}
         </p>
-        <p className="text-slate-900">{text}</p>
-        <div className="flex justify-between items-center mt-2 mr-1">
-          <p className="text-sm text-slate-500">{formattedTimestamp}</p>
-          <p className="text-sm text-slate-500">
+        <p className="text-slate-900 sm:text-md lg:text-xs">{text}</p>
+        <div className="flex justify-between items-center mt-2 mr-0 sm:text-md lg:text-xs">
+          <p className=" text-slate-500">{formattedTimestamp}</p>
+          <p className=" text-slate-500">
             {userLikedQuote ? (
-              <i className="fa-solid fa-heart" onClick={handleLike}></i>
+              <i className="fa-solid fa-heart mr-1 " onClick={handleLike}></i>
             ) : (
-              <i className="fa-regular fa-heart" onClick={handleLike}></i>
+              <i className="fa-regular fa-heart mr-1" onClick={handleLike}></i>
             )}
             {Object.keys(usersLiked)?.length}
           </p>

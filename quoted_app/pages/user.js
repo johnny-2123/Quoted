@@ -58,7 +58,7 @@ export default function User() {
         <div className="w-full flex flex-row items-center">
           <img
             src={`${userData?.profilePicture || defaultProfilePicture}`}
-            className="w-[5rem] h-[5rem] rounded-full object-cover md:w-[4rem] md:h-[4rem] sm:w-[3rem] sm:h-[3rem]"
+            className="rounded-full object-cover w-[3rem] h-[3rem]"
           />
           <i
             className="fa-solid fa-user-pen ml-auto cursor-pointer duration-300 hover:text-gray-300"
@@ -69,9 +69,9 @@ export default function User() {
           ></i>
         </div>
 
-        <div className="flex flex-col items-start  w-full">
-          <h1 className="text-xl font-bold">{userData?.userName}</h1>
-          <p className="text-sm text-slate-900">{userData?.bio}</p>
+        <div className="flex flex-col items-start w-full">
+          <h1 className="xl:xs sm:md font-bold">{userData?.userName}</h1>
+          <p className="xl:xs sm:md text-slate-900">{userData?.bio}</p>
         </div>
       </div>
       <div className="py-2 w-full text-end">
@@ -81,7 +81,7 @@ export default function User() {
             logout();
             router.push("/");
           }}
-          className="duration-300 hover:pl-2 cursor-pointer"
+          className="duration-300 hover:pl-2 cursor-pointer bg-dark text-white rounded-[20px] px-4 py-1"
         >
           Logout
         </button>

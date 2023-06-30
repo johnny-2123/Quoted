@@ -16,7 +16,7 @@ export default function Footer() {
         <i className="fa-regular fa-heart duration-300 hover:opacity-30 cursor-pointer text-light"></i>
       </Link>
       <Link href={"/"} className="duration-300 hover:opacity-30 cursor-pointer">
-        <i className="fa-solid fa-quote-left   text-light"></i>
+        <i className="fa-solid fa-quote-left   text-light mr-1"></i>
         <i className="fa-solid fa-quote-right  text-light"></i>
       </Link>
       <Link
