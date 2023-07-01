@@ -18,5 +18,4 @@ Quoted is an online platform inviting users to share, enjoy, and connect through
 ![view other ](https://github.com/johnny-2123/Quoted/assets/95261336/e95c7254-d2aa-4445-bb91-b1a6c0aafada)
 
 ## Edit Profile
-![quoted-phi vercel app_(iPhone SE) (5)](https://github.com/johnny-2123/Quoted/assets/95261336/c3130e54-78fc-47ac-a311-67e8f5dd3e0d)
-
+![edit profile](https://github.com/johnny-2123/Quoted/assets/95261336/89438609-0dcb-48b8-a41b-34d985b31b1a)
