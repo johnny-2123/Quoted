@@ -18,4 +18,4 @@ Quoted is an online platform inviting users to share, enjoy, and connect through
 ![view other ](https://github.com/johnny-2123/Quoted/assets/95261336/e95c7254-d2aa-4445-bb91-b1a6c0aafada)
 
 ## Edit Profile
-![edit profile](https://github.com/johnny-2123/Quoted/assets/95261336/89438609-0dcb-48b8-a41b-34d985b31b1a)
+![edit profile___](https://github.com/johnny-2123/Quoted/assets/95261336/a4af6888-baae-4e61-ba3b-8fc0dfd1f863)
