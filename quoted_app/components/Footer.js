@@ -24,7 +24,11 @@ export default function Footer() {
       <Link href={""} onClick={notifyComingSoon}>
         <i className="fa-regular fa-heart duration-300 hover:opacity-60 cursor-not-allowed text-light"></i>
       </Link>
-      <Link href={"/"} className="duration-300 hover:opacity-60 cursor-pointer">
+      <Link
+        href={"/"}
+        className="duration-300 hover:opacity-60 cursor-pointer"
+        title="All Quotes"
+      >
         <i className="fa-solid fa-quote-left   text-light mr-1"></i>
         <i className="fa-solid fa-quote-right  text-light"></i>
       </Link>
@@ -38,6 +42,7 @@ export default function Footer() {
       <Link
         href={"/user"}
         className="duration-300 hover:opacity-60 cursor-pointer text-light"
+        title="Profile"
       >
         <i className="fa-solid fa-user"></i>
       </Link>
