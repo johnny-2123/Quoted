@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { db } from "@/firebase";
 import { collection, query, orderBy } from "firebase/firestore";
 import { useAuth } from "@/context/AuthContext";
@@ -11,10 +11,10 @@ import AddEditQuote from "./AddEditQuote";
 export default function QuotesFeed() {
   const { currentUser } = useAuth();
 
-  const [openModal, setOpenModal] = React.useState(false);
-  const [editQuoteId, setEditQuoteId] = React.useState(null);
-  const [editQuoteText, setEditQuoteText] = React.useState("");
-  const [quoteContent, setQuoteContent] = React.useState("");
+  const [openModal, setOpenModal] = useState(false);
+  const [editQuoteId, setEditQuoteId] = useState(null);
+  const [editQuoteText, setEditQuoteText] = useState("");
+  const [quoteContent, setQuoteContent] = useState("");
 
   const collectionRef = collection(db, "quotes");
   const q = query(collectionRef, orderBy("createdAt", "desc"));

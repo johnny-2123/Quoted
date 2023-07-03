@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { db } from "@/firebase";
-import { getDoc, getAll } from "firebase/firestore";
+import { getDoc } from "firebase/firestore";
 import { updateDoc, doc, deleteField } from "firebase/firestore";
 import Link from "next/link";
 import Image from "next/image";
@@ -113,11 +113,6 @@ export default function QuoteCard({
           height={0}
           style={{ width: "100%", height: "auto" }}
         />
-        {/* <img
-          src={`${authorData?.profilePicture || defaultProfilePicture}`}
-          className="rounded-full object-cover min-w-[35px] min-h-[35px] max-w-[40px] max-h-[40px]"
-          alt="Profile Picture"
-        /> */}
       </Link>
       <div className="flex flex-col flex-grow text-xs sm:text-md xs:text-lg">
         <p className="font-bold w-full flex justify-between items-center content-center text-sm lg:text-base">

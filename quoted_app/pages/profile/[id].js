@@ -17,7 +17,7 @@ export default function ViewProfile() {
 
   const { currentUser } = useAuth();
 
-  console.log("userData", userData);
+  // console.log("userData", userData);
 
   if (!userData) {
     return <div>Loading...</div>;
@@ -77,7 +77,7 @@ export default function ViewProfile() {
             className="rounded-full object-cover w-[3rem] h-[3rem]"
           />
           <i
-            class={`fa-solid fa-user-${
+            className={`fa-solid fa-user-${
               followingUser ? "check" : "plus"
             } ml-auto cursor-pointer duration-300 hover:opacity-70 sm:text-lg mr-2`}
             onClick={handleFollow}

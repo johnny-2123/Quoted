@@ -6,7 +6,6 @@ import Modal from "@/components/Modal";
 import useUserData from "@/hooks/useUserData";
 import EditUserForm from "@/components/EditUserForm";
 import AddEditQuote from "@/components/AddEditQuote";
-import { Redirect } from "next/router";
 import Image from "next/image";
 
 export default function User() {

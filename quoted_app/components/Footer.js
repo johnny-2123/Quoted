@@ -20,7 +20,7 @@ export default function Footer() {
     <div className="flex justify-between items-center gap-8 py-3 px-[1.5rem] mx-0 text-2xl xxs:px-[1rem] xxs:gap-2 xxs:justify-between">
       <Link
         href={{
-          pathname: "/following",
+          pathname: "/friends",
         }}
       >
         <i className="fa-solid fa-users duration-300 hover:none cursor-pointer text-light"></i>
