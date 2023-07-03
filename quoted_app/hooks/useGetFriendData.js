@@ -5,14 +5,19 @@ import {
   onSnapshot,
   collection,
   query,
-  orderBy,
   where,
+  docRef,
 } from "firebase/firestore";
 import { useAuth } from "@/context/AuthContext";
+import useUserData from "@/hooks/useUserData";
 
-const useGetFollowingQuotes = () => {
+const useGetFriendData = () => {
   const { currentUser } = useAuth();
-  const [followedUsersUIDs, setFollowedUsersUIDs] = useState([]);
+  const { userData } = useUserData(currentUser?.uid);
+  console.log("userData in friends page", userData);
+  const [followingUsers, setFollowingUsers] = useState([]);
+  const [folllowingUserUIDs, setFollowingUserUIDs] = useState([]);
+  const [followerUserUIDs, setFollowerUserUIDs] = useState([]);
   const [quotes, setQuotes] = useState([]);
 
   useEffect(() => {
@@ -23,7 +28,13 @@ const useGetFollowingQuotes = () => {
     const unsubscribe = onSnapshot(docRef, (doc) => {
       if (doc.exists()) {
         const data = doc.data();
-        setFollowedUsersUIDs(Object.values(doc.data()?.following));
+        if (doc.data()?.following === undefined) return;
+
+        setFollowingUsers(Object.values(doc.data()?.following));
+        setFollowingUserUIDs(Object.keys(doc.data()?.following));
+
+        if (doc.data()?.followers === undefined) return;
+        setFollowerUserUIDs(Object.keys(doc.data()?.followers));
       }
     });
 
@@ -31,10 +42,10 @@ const useGetFollowingQuotes = () => {
   }, [currentUser?.uid]);
 
   useEffect(() => {
-    if (followedUsersUIDs.length === 0) return;
+    if (followingUsers?.length <= 0) return;
     const quotesQuery = query(
       collection(db, "quotes"),
-      where("author", "in", followedUsersUIDs)
+      where("author", "in", followingUsers)
     );
 
     const unsubscribe = onSnapshot(quotesQuery, (querySnapshot) => {
@@ -53,9 +64,9 @@ const useGetFollowingQuotes = () => {
     });
 
     return () => unsubscribe();
-  }, [followedUsersUIDs]);
+  }, [followingUsers]);
 
-  return { quotes };
+  return { quotes, folllowingUserUIDs, followerUserUIDs };
 };
 
-export default useGetFollowingQuotes;
+export default useGetFriendData;

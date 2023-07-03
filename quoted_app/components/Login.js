@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { db } from "../firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, deleteField } from "firebase/firestore";
 import LandingHeader from "./LandingHeader";
 import Footer from "./Footer";
 

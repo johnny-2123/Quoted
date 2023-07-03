@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useAuth } from "@/context/AuthContext";
 import QuoteCard from "@/components/QuoteCard";
-import useGetFollowingQuotes from "@/hooks/useGetFollowingQuotes";
+import useGetFriendData from "@/hooks/useGetFriendData";
 import Modal from "@/components/Modal";
 import useUserData from "@/hooks/useUserData";
 import Followers from "@/components/followers";
@@ -10,14 +10,13 @@ import Following from "@/components/following";
 const FollowingQuotesFeed = () => {
   const { currentUser } = useAuth();
   const { userData } = useUserData(currentUser?.uid);
-
-  const { quotes } = useGetFollowingQuotes();
+  console.log("userData in friends page", userData);
+  const { quotes, followerUserUIDs, folllowingUserUIDs } = useGetFriendData();
   const [openModal, setOpenModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
-  const [followers, setFollowers] = useState([]);
-  // console.log("followers", followers);
-  const [following, setFollowing] = useState([]);
-  // console.log("following", following);
+
+  console.log("followers in friends page", followerUserUIDs);
+  console.log("following in friends page", folllowingUserUIDs);
 
   const openFollowingModal = () => {
     setModalContent("following");
@@ -33,15 +32,6 @@ const FollowingQuotesFeed = () => {
     setModalContent("");
     setOpenModal(false);
   };
-
-  useEffect(() => {
-    if (userData?.followers) {
-      setFollowers(Object.keys(userData?.followers));
-    }
-    if (userData?.following) {
-      setFollowing(Object.keys(userData?.following));
-    }
-  }, [userData?.followers, userData?.following]);
 
   const quoteCards = quotes.map((quote) => (
     <QuoteCard
@@ -65,9 +55,11 @@ const FollowingQuotesFeed = () => {
         </h1>
         <div className="mr-[2rem] flex flex-row">
           <h2 className="mr-[1rem]" onClick={openFollowersModal}>
-            Followers {followers?.length}
+            Followers {followerUserUIDs?.length}
           </h2>
-          <h2 onClick={openFollowingModal}>Following {following?.length}</h2>
+          <h2 onClick={openFollowingModal}>
+            Following {folllowingUserUIDs?.length}
+          </h2>
         </div>
       </div>
       <div className="flex-grow overflow-y-scroll">{quoteCards}</div>
@@ -79,8 +71,9 @@ const FollowingQuotesFeed = () => {
             modalContent === "following" ? Following : Followers
           }
           closeModal={closeModal}
-          followers={followers}
-          following={following}
+          followers={followerUserUIDs}
+          following={folllowingUserUIDs}
+          currentUser={currentUser}
         />
       )}
     </div>

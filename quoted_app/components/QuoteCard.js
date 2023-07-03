@@ -112,6 +112,7 @@ export default function QuoteCard({
           width={0}
           height={0}
           style={{ width: "100%", height: "auto" }}
+          unoptimized={true}
         />
       </Link>
       <div className="flex flex-col flex-grow text-xs sm:text-md xs:text-lg">
