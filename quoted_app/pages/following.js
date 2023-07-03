@@ -1,25 +1,17 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { db } from "@/firebase";
-import { collection, query, orderBy } from "firebase/firestore";
+import { doc, onSnapshot, collection, query, where } from "firebase/firestore";
 import { useAuth } from "@/context/AuthContext";
-import QuoteCard from "./QuoteCard";
-import NewQuoteBtn from "./NewQuoteBtn";
-import Modal from "./Modal";
-import useQuotes from "@/hooks/useQuotes";
-import AddEditQuote from "./AddEditQuote";
+import QuoteCard from "@/components/QuoteCard";
+import useGetFollowingQuotes from "@/hooks/useGetFollowingQuotes";
+import Modal from "@/components/Modal";
 
-export default function QuotesFeed() {
+const FollowingQuotesFeed = () => {
   const { currentUser } = useAuth();
 
+  const { quotes } = useGetFollowingQuotes();
+  console.log("quotes", quotes);
   const [openModal, setOpenModal] = React.useState(false);
-  const [editQuoteId, setEditQuoteId] = React.useState(null);
-  const [editQuoteText, setEditQuoteText] = React.useState("");
-  const [quoteContent, setQuoteContent] = React.useState("");
-
-  const collectionRef = collection(db, "quotes");
-  const q = query(collectionRef, orderBy("createdAt", "desc"));
-
-  const quotes = useQuotes(q);
 
   const openEditModal = useCallback((quoteId, quoteText) => {
     setEditQuoteId(quoteId);
@@ -49,11 +41,10 @@ export default function QuotesFeed() {
   return (
     <div className="flex flex-col h-full overflow-auto">
       <h1 className={`text-3xl py-2 transition-all duration-300 `}>
-        Quoted <i className="fa-solid fa-quote-left text-dark mr-1"></i>
+        Following <i className="fa-solid fa-quote-left text-dark mr-1"></i>
         <i className="fa-solid fa-quote-right text-light"></i>
       </h1>
       <div className="flex-grow overflow-y-scroll">{quoteCards}</div>
-      <NewQuoteBtn setOpenModal={setOpenModal} />
       {openModal && (
         <Modal
           setOpenModal={setOpenModal}
@@ -70,4 +61,6 @@ export default function QuotesFeed() {
       )}
     </div>
   );
-}
+};
+
+export default FollowingQuotesFeed;

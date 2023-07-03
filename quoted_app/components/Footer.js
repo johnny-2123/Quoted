@@ -18,14 +18,20 @@ export default function Footer() {
 
   return (
     <div className="flex justify-between items-center gap-8 py-3 px-[1.5rem] mx-0 text-2xl xxs:px-[1rem] xxs:gap-2 xxs:justify-between">
-      <Link href={""} onClick={notifyComingSoon}>
-        <i className="fa-solid fa-users duration-300 hover:none cursor-not-allowed text-light"></i>
+      <Link
+        href={{
+          pathname: "/following",
+        }}
+      >
+        <i className="fa-solid fa-users duration-300 hover:none cursor-pointer text-light"></i>
       </Link>
       <Link href={""} onClick={notifyComingSoon}>
         <i className="fa-regular fa-heart duration-300 hover:opacity-60 cursor-not-allowed text-light"></i>
       </Link>
       <Link
-        href={"/"}
+        href={{
+          pathname: "/",
+        }}
         className="duration-300 hover:opacity-60 cursor-pointer"
         title="All Quotes"
       >

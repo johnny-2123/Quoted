@@ -99,15 +99,16 @@ export default function QuoteCard({
       className="flex py-4 pl-1 pr-4 border-y border-gray-200 rounded w-full  "
     >
       <Link
-        href={`/profile/${authorData?.uid}`}
+        href={{
+          pathname: `/profile/${authorData?.uid}`,
+          query: { id: authorData?.uid },
+        }}
         className="p-0 m-0 mr-3 w-[4rem] h-[4rem] min-w-[35px] min-h-[35px] max-w-[40px] max-h-[40px]"
       >
         {/* <Image
           src={authorData?.profilePicture}
+      className="rounded-full object-cover min-w-[35px] min-h-[35px] max-w-[40px] max-h-[40px]"
           alt="Profile Picture"
-          width={120} // Specify width
-          height={120} // Specify height
-          className="rounded-full object-cover"
         /> */}
         <img
           src={`${authorData?.profilePicture || defaultProfilePicture}`}
