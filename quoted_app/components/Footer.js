@@ -17,7 +17,7 @@ export default function Footer() {
   };
 
   return (
-    <div className="flex justify-between items-center gap-8 py-3 px-[1.5rem] mx-0 text-2xl xxs:px-[1rem] xxs:gap-2 xxs:justify-between">
+    <div className="flex flex-col-reverse py-[5rem] md:py-3 md:flex-row justify-between items-center gap-8 px-[1rem] md:px-[1.5rem] mx-0 text-2xl xxs:px-[1rem] xxs:gap-2 xxs:justify-between">
       <Link
         href={{
           pathname: "/friends",

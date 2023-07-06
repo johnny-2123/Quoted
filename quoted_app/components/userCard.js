@@ -38,7 +38,7 @@ const UserCard = ({
           {userName}
         </p>
         <i
-          className="fa-solid fa-user-minus"
+          className="fa-solid fa-user-minus cursor-pointer duration-300 hover:opacity-70 mr-2"
           onClick={() => handleEditRelationship(key)}
         ></i>
       </div>

@@ -13,9 +13,9 @@ import {
 import UserCard from "@/components/userCard";
 
 const Followers = ({ followers, currentUser }) => {
-  console.log(`followers in Followers modal: ${followers}`);
+  // console.log(`followers in Followers modal: ${followers}`);
   const [followerUsers, setFollowerUsers] = useState([]);
-  console.log(`followerUsers in Followers modal: ${followerUsers}`);
+  // console.log(`followerUsers in Followers modal: ${followerUsers}`);
 
   useEffect(() => {
     if (followers.length <= 0) return;

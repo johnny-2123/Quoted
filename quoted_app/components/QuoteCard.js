@@ -16,6 +16,7 @@ export default function QuoteCard({
 }) {
   const [authorData, setAuthorData] = useState(null);
   const [userLikedQuote, setUserLikedQuote] = useState(false);
+  const [userFavoritedQuote, setUserFavoritedQuote] = useState(false);
   const defaultProfilePicture =
     "https://res.cloudinary.com/dkul3ouvi/image/upload/v1688073928/39013954-f5091c3a-43e6-11e8-9cac-37cf8e8c8e4e_iwci96.jpg";
 
@@ -129,20 +130,25 @@ export default function QuoteCard({
         </p>
         <p className="text-sm lg:text-base text-slate-900 text-start">{text}</p>
         <div className="flex justify-between items-center mt-2 mr-0 sm:text-sm lg:text-xs">
-          <p className=" text-slate-500">
-            {userLikedQuote ? (
-              <i
-                className="fa-solid fa-heart mr-1 cursor-pointer "
-                onClick={handleLike}
-              ></i>
-            ) : (
-              <i
-                className="fa-regular fa-heart mr-1 cursor-pointer"
-                onClick={handleLike}
-              ></i>
-            )}
-            {Object.keys(usersLiked)?.length}
-          </p>
+          <div className="flex flex-row ">
+            <p className=" text-slate-500 mr-[1rem]">
+              {userLikedQuote ? (
+                <i
+                  className="fa-solid fa-heart mr-1 cursor-pointer "
+                  onClick={handleLike}
+                ></i>
+              ) : (
+                <i
+                  className="fa-regular fa-heart mr-1 cursor-pointer"
+                  onClick={handleLike}
+                ></i>
+              )}
+              {Object.keys(usersLiked)?.length}
+            </p>
+            <p className="text-slate-500 ">
+              <i className="fa-regular fa-star mr-1"></i>
+            </p>
+          </div>
           <p className=" text-slate-500">{formattedTimestamp}</p>
         </div>
       </div>

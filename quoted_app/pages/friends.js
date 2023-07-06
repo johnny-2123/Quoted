@@ -10,13 +10,13 @@ import Following from "@/components/following";
 const FollowingQuotesFeed = () => {
   const { currentUser } = useAuth();
   const { userData } = useUserData(currentUser?.uid);
-  console.log("userData in friends page", userData);
+  // console.log("userData in friends page", userData);
   const { quotes, followerUserUIDs, folllowingUserUIDs } = useGetFriendData();
   const [openModal, setOpenModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
 
-  console.log("followers in friends page", followerUserUIDs);
-  console.log("following in friends page", folllowingUserUIDs);
+  // console.log("followers in friends page", followerUserUIDs);
+  // console.log("following in friends page", folllowingUserUIDs);
 
   const openFollowingModal = () => {
     setModalContent("following");
@@ -54,10 +54,10 @@ const FollowingQuotesFeed = () => {
           <i className="fa-solid fa-quote-right text-light"></i>
         </h1>
         <div className="mr-[2rem] flex flex-row">
-          <h2 className="mr-[1rem]" onClick={openFollowersModal}>
+          <h2 className="mr-[1rem] cursor-pointer" onClick={openFollowersModal}>
             Followers {followerUserUIDs?.length}
           </h2>
-          <h2 onClick={openFollowingModal}>
+          <h2 className="cursor-pointer" onClick={openFollowingModal}>
             Following {folllowingUserUIDs?.length}
           </h2>
         </div>
