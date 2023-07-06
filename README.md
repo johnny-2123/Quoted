@@ -2,6 +2,8 @@
 
 Quoted is an online platform inviting users to share, enjoy, and connect through the art of quotes. Powered by Next.js, Tailwind CSS and Firebase, users can create, edit, delete, quotes. Users can also like quotes and follow their favorite quote creators.
 
+## Technologies
+[![My Skills](https://skillicons.dev/icons?i=js,nextjs,tailwind,firebase,html,css)](https://skillicons.dev)
 
 ## Gallery
 
