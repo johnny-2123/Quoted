@@ -22,6 +22,7 @@ export default function Favorites() {
       text={quote.text}
       timestamp={quote.timestamp}
       usersLiked={quote.likes}
+      usersFavorited={quote.favorites}
       currentUser={currentUser}
       openEditModal={null}
     />

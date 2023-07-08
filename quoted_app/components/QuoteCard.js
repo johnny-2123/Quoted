@@ -185,14 +185,16 @@ export default function QuoteCard({
               )}
               {Object.keys(usersLiked)?.length}
             </p>
-            <p className="text-slate-500 ">
-              <i
-                className={`fa-${
-                  userFavoritedQuote ? "solid" : "regular"
-                } fa-star mr-1 cursor-pointer`}
-                onClick={handleFavorite}
-              ></i>
-            </p>
+            {currentUser && authorData?.uid !== currentUser?.uid && (
+              <p className="text-slate-500 ">
+                <i
+                  className={`fa-${
+                    userFavoritedQuote ? "solid" : "regular"
+                  } fa-star mr-1 cursor-pointer`}
+                  onClick={handleFavorite}
+                ></i>
+              </p>
+            )}
           </div>
           <p className=" text-slate-500">{formattedTimestamp}</p>
         </div>
