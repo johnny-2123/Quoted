@@ -39,9 +39,10 @@ export default function Footer() {
         <i className="fa-solid fa-quote-right  text-light"></i>
       </Link>
       <Link
-        href={""}
-        onClick={notifyComingSoon}
-        className="duration-300 hover:opacity-60 cursor-not-allowed text-light"
+        href={{
+          pathname: "/favorites",
+        }}
+        className="duration-300 hover:opacity-60 cursor-pointer text-light"
       >
         <i className="fa-regular fa-star"></i>
       </Link>

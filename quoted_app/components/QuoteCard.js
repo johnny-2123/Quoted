@@ -11,6 +11,7 @@ export default function QuoteCard({
   text,
   author,
   usersLiked,
+  usersFavorited,
   currentUser,
   openEditModal,
 }) {
@@ -33,15 +34,24 @@ export default function QuoteCard({
     };
 
     const fetchUsersLikedData = async () => {
-      if (currentUser?.uid in usersLiked) {
+      if (usersLiked && currentUser?.uid in usersLiked) {
         setUserLikedQuote(true);
       } else {
         setUserLikedQuote(false);
       }
     };
 
+    const fetchUsersFavoritedData = async () => {
+      if (usersFavorited && currentUser?.uid in usersFavorited) {
+        setUserFavoritedQuote(true);
+      } else {
+        setUserFavoritedQuote(false);
+      }
+    };
+
     fetchAuthorData();
     fetchUsersLikedData();
+    fetchUsersFavoritedData();
   }, [author, usersLiked, currentUser]);
 
   const formattedTimestamp =
@@ -67,7 +77,6 @@ export default function QuoteCard({
 
     try {
       if (userLikedQuote) {
-        // Unlike the quote
         await updateDoc(userRef, {
           [`likes.${id}`]: deleteField(),
         });
@@ -78,7 +87,6 @@ export default function QuoteCard({
 
         setUserLikedQuote(false);
       } else {
-        // Like the quote
         await updateDoc(userRef, {
           [`likes.${id}`]: quoteRef,
         });
@@ -91,6 +99,38 @@ export default function QuoteCard({
       }
     } catch (error) {
       console.log("Error toggling like:", error);
+    }
+  };
+
+  const handleFavorite = async () => {
+    if (!currentUser) return;
+    const userRef = doc(db, "users", currentUser?.uid);
+    const quoteRef = doc(db, "quotes", id);
+
+    try {
+      if (userFavoritedQuote) {
+        await updateDoc(userRef, {
+          [`favorites.${id}`]: deleteField(),
+        });
+
+        await updateDoc(quoteRef, {
+          [`favorites.${currentUser.uid}`]: deleteField(),
+        });
+
+        setUserFavoritedQuote(false);
+      } else {
+        await updateDoc(userRef, {
+          [`favorites.${id}`]: quoteRef,
+        });
+
+        await updateDoc(quoteRef, {
+          [`favorites.${currentUser.uid}`]: userRef,
+        });
+
+        setUserFavoritedQuote(true);
+      }
+    } catch (error) {
+      console.log("Error toggling favorite:", error);
     }
   };
 
@@ -146,7 +186,12 @@ export default function QuoteCard({
               {Object.keys(usersLiked)?.length}
             </p>
             <p className="text-slate-500 ">
-              <i className="fa-regular fa-star mr-1"></i>
+              <i
+                className={`fa-${
+                  userFavoritedQuote ? "solid" : "regular"
+                } fa-star mr-1 cursor-pointer`}
+                onClick={handleFavorite}
+              ></i>
             </p>
           </div>
           <p className=" text-slate-500">{formattedTimestamp}</p>

@@ -91,6 +91,7 @@ export default function AddEditQuote({
         author: doc(db, "users", currentUser.uid),
         createdAt: serverTimestamp(),
         likes: {},
+        favorites: {},
       });
       await updateQuoteField(currentUser.uid, newQuoteRef.id);
     } catch (error) {

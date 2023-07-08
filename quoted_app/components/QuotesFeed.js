@@ -43,6 +43,7 @@ export default function QuotesFeed() {
       usersLiked={quote.likes}
       currentUser={currentUser}
       openEditModal={openEditModal}
+      usersFavorited={quote.favorites}
     />
   ));
 

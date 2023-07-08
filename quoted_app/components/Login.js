@@ -38,6 +38,7 @@ export default function Login() {
           bio: "",
           quotes: {},
           likes: {},
+          favorites: {},
           friends: {},
           userName: userName,
         });
