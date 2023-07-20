@@ -48,7 +48,7 @@ export default function QuotesFeed() {
   ));
 
   return (
-    <div className="flex flex-col h-full overflow-auto">
+    <div className="flex flex-col h-full overflow-auto py-4 px-2">
       <h1 className={`text-3xl py-2 transition-all duration-300 `}>
         Quoted <i className="fa-solid fa-quote-left text-dark mr-1"></i>
         <i className="fa-solid fa-quote-right text-light"></i>

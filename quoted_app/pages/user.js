@@ -54,7 +54,7 @@ export default function User() {
   if (!userData) return null;
 
   return (
-    <div className="flex flex-col overflow-hidden">
+    <div className="flex flex-col overflow-hidden py-4 px-2">
       <div className="flex flex-col items-center gap-2 p-0">
         <div className="w-full flex flex-row items-center">
           <img

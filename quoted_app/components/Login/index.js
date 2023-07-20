@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { db } from "../firebase";
+import { useAuth } from "../../context/AuthContext";
+import { db } from "../../firebase";
 import { doc, setDoc, deleteField } from "firebase/firestore";
-import LandingHeader from "./LandingHeader";
-import Footer from "./Footer";
+import LandingHeader from "../LandingHeader";
+import Footer from "../Footer";
+import styles from "./Login.module.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -60,9 +61,9 @@ export default function Login() {
   }
 
   return (
-    <div className="flex-1 text-xs sm:text-sm flex flex-col justify-start items-center gap-2 sm:gap-4">
+    <div className="flex-1 text-xs sm:text-sm flex flex-col justify-center items-center gap-2 sm:gap-4 relative p-0">
       <LandingHeader />
-      <h1 className="font-bold select-none text-4xl sm:text-2xl uppercase text-slate-800 border-t border-slate-500 pt-[1.2rem] w-[40%] text-center ">
+      <h1 className="font-bold select-none text-4xl sm:text-2xl uppercase text-slate-800 border-t border-slate-500 pt-[1.75rem] w-[40%] text-center ">
         {isLoggingIn ? "Login" : "Register"}
       </h1>
       {error && (
@@ -111,6 +112,19 @@ export default function Login() {
       >
         {!isLoggingIn ? "Login" : "Register"}
       </h2>
+      <div className={styles["custom-shape-divider-bottom-1689888671"]}>
+        <svg
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M741,116.23C291,117.43,0,27.57,0,6V120H1200V6C1200,27.93,1186.4,119.83,741,116.23Z"
+            className={styles["shape-fill"]}
+          ></path>
+        </svg>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,19 @@
+.custom-shape-divider-bottom-1689888671 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-bottom-1689888671 svg {
+  position: relative;
+  display: block;
+  width: calc(186% + 1.3px);
+  height: 81px;
+}
+
+.custom-shape-divider-bottom-1689888671 .shape-fill {
+  fill: #30aebe;
+}

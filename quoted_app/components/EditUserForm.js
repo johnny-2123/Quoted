@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
-import { storage } from "../firebase";
 import {
+  getStorage,
   ref,
   uploadBytes,
   getDownloadURL,
@@ -30,6 +30,10 @@ export default function EditUserForm({ closeEditModal, userData }) {
   const [previewImage, setPreviewImage] = useState(
     userData.profilePicture || genericProfilePicture
   );
+
+  const storage = getStorage();
+
+  console.log("currentUser.uid", currentUser.uid);
 
   const imageRef = ref(storage, `images/${currentUser.uid}`);
 

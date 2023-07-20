@@ -29,7 +29,7 @@ export default function Favorites() {
   ));
 
   return (
-    <div className="flex flex-col h-full overflow-auto">
+    <div className="flex flex-col h-full overflow-auto py-4 px-2">
       <h1 className={`text-3xl py-2 transition-all duration-300 `}>
         Favorites
         <i className="fa-solid fa-star text-light ml-1"></i>

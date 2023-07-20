@@ -47,7 +47,7 @@ const FollowingQuotesFeed = () => {
   ));
 
   return (
-    <div className="flex flex-col h-full overflow-auto">
+    <div className="flex flex-col h-full overflow-auto py-4 px-2">
       <div className="w-full flex flex-col items-start mb-[.3rem]">
         <h1 className={`text-3xl py-2 transition-all duration-300 `}>
           Friends <i className="fa-solid fa-quote-left text-dark mr-1"></i>

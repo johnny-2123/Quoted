@@ -140,7 +140,7 @@ export default function AddEditQuote({
         ></textarea>
         <button
           type="submit"
-          className="w-full bg-light hover:bg-opacity-90 text-white py-2 px-4 rounded-[20px]  transition-colors duration-300"
+          className="w-full bg-light hover:bg-opacity-90 text-white mt-5 py-3 px-4 rounded-[20px]  transition-colors duration-300"
           disabled={loading}
         >
           {loading ? "Loading..." : quoteId ? "Edit Quote" : "Add Quote"}
@@ -149,7 +149,7 @@ export default function AddEditQuote({
       {quoteId && (
         <button
           onClick={() => deleteQuote(quoteId)}
-          className="w-full bg-dark hover:bg-opacity-90 text-white py-2 px-4 rounded-[20px] transition-colors duration-300 mt-4"
+          className="w-full bg-dark hover:bg-opacity-90 text-white py-3 px-4 rounded-[20px] transition-colors duration-300 mt-2"
           disabled={loading}
         >
           {loading ? "Deleting..." : "Delete Quote"}
