@@ -5,7 +5,7 @@ import Image from "next/image";
 const UserCard = ({
   userName,
   profilePicture,
-  key,
+  userId,
   handleEditRelationship,
 }) => {
   const defaultProfilePicture =
@@ -13,13 +13,13 @@ const UserCard = ({
 
   return (
     <div
-      key={key}
+      key={userId}
       className="flex py-4 pl-1 pr-4 border-y border-gray-200 rounded w-full "
     >
       <Link
         href={{
-          pathname: `/profile/${key}`,
-          query: { id: key },
+          pathname: `/profile/${userId}`,
+          query: { id: userId },
         }}
         className="p-0 m-0 mr-3 w-[4rem] h-[4rem] min-w-[35px] min-h-[35px] max-w-[40px] max-h-[40px] relative"
       >
@@ -39,7 +39,7 @@ const UserCard = ({
         </p>
         <i
           className="fa-solid fa-user-minus cursor-pointer duration-300 hover:opacity-70 mr-2"
-          onClick={() => handleEditRelationship(key)}
+          onClick={() => handleEditRelationship(userId)}
         ></i>
       </div>
     </div>

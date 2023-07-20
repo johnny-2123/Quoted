@@ -58,9 +58,11 @@ const Followers = ({ followers, currentUser }) => {
   };
 
   const userCards = followerUsers.map((user) => {
+    console.log("user?.uid", user?.uid);
     return (
       <UserCard
         key={user?.uid}
+        userId={user?.uid}
         userName={user?.userName}
         displayName={user?.displayName}
         profilePicture={user?.profilePicture}

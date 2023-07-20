@@ -61,6 +61,7 @@ const Following = ({ following, currentUser }) => {
     return (
       <UserCard
         key={user?.uid}
+        userId={user?.uid}
         userName={user?.userName}
         displayName={user?.displayName}
         profilePicture={user?.profilePicture}
