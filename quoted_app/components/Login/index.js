@@ -50,11 +50,14 @@ export default function Login() {
   }
 
   async function handleDemoLogin() {
-    setEmail("testuser@gmail.com");
-    setPassword("password");
+    const demoEmail = "testuser@gmail.com";
+    const demoPassword = "password";
+
+    setEmail(demoEmail);
+    setPassword(demoPassword);
 
     try {
-      await login(email, password);
+      await login(demoEmail, demoPassword);
     } catch (err) {
       setError("Incorrect email or password");
     }
