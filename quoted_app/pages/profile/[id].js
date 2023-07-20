@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { getDoc, updateDoc, doc, deleteField } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../../context/AuthContext";
+import { toast, Slide } from "react-toastify";
 
 export default function ViewProfile() {
   const router = useRouter();
@@ -23,6 +24,15 @@ export default function ViewProfile() {
     return <div>Loading...</div>;
   }
 
+  const notifyFriendStatusUpdate = (userName, followingStatusUpdate) => {
+    const message = `${userName} ${followingStatusUpdate} succesfully`;
+    toast.success(message, {
+      transition: Slide,
+      autoClose: 2000,
+      hideProgressBar: true,
+    });
+  };
+
   const quoteCards = userQuotes.map((quote) => (
     <QuoteCard
       id={quote.id}
@@ -31,7 +41,8 @@ export default function ViewProfile() {
       text={quote.text}
       timestamp={quote.timestamp}
       usersLiked={quote.likes}
-      currentUser={null}
+      usersFavorited={quote.favorites}
+      currentUser={currentUser}
       openEditModal={() => {}}
     />
   ));
@@ -65,6 +76,11 @@ export default function ViewProfile() {
       }
     } catch (error) {
       console.log("error", error);
+    } finally {
+      notifyFriendStatusUpdate(
+        userData.userName,
+        followingUser ? "unfollowed" : "followed"
+      );
     }
   };
 
