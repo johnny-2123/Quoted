@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { db } from "../firebase";
+import React, { useEffect, useState, useRef } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { db } from "../../firebase";
 import {
   collection,
   addDoc,
@@ -11,7 +11,9 @@ import {
   deleteField,
 } from "firebase/firestore";
 import { toast, Slide } from "react-toastify";
-
+import Picker from "emoji-picker-react";
+import InputEmoji from "react-input-emoji";
+import styles from "./AddEditQuote.module.css";
 export default function AddEditQuote({
   quoteId,
   setEditQuoteId,
@@ -24,6 +26,7 @@ export default function AddEditQuote({
 }) {
   const { currentUser } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [showPicker, setShowPicker] = useState(false);
 
   useEffect(() => {
     setQuoteContent(quoteText);
@@ -128,16 +131,34 @@ export default function AddEditQuote({
   };
 
   return (
-    <div className="flex flex-col gap-3 text-xs sm:text-md xs:text-lg">
+    <div className="flex flex-col gap-3 text-xs sm:text-md xs:text-lg ">
       <form onSubmit={handleSubmit}>
+        <img
+          className="emoji-icon mb-[.5rem] ml-auto cursor-pointer w-5 h-5 "
+          src="https://icons.getbootstrap.com/assets/icons/emoji-smile.svg"
+          onClick={() => setShowPicker((val) => !val)}
+        />
         <textarea
           value={quoteContent}
           onChange={(e) => setQuoteContent(e.target.value)}
           placeholder="Enter your quote..."
           className="p-2 border border-gray-300 rounded w-full"
-          rows={4}
+          id="mytextarea"
+          rows={2}
           required
         ></textarea>
+        {showPicker && (
+          <div className="relative w-[100%] h-0 top-[4.5rem]">
+            <Picker
+              height={"60vh"}
+              width={"100%"}
+              onEmojiClick={(emojiObject) =>
+                setQuoteContent((prevMsg) => prevMsg + emojiObject.emoji)
+              }
+              previewConfig={{ showPreview: false }}
+            />
+          </div>
+        )}
         <button
           type="submit"
           className="w-full bg-light hover:bg-opacity-90 text-white mt-5 py-3 px-4 rounded-[20px]  transition-colors duration-300"
