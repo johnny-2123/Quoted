@@ -12,9 +12,9 @@ const LandingHeader = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         ></motion.i>
-        Quoted{" "}
+        Quoted
         <motion.i
-          className="fa-solid fa-quote-right text-light"
+          className="fa-solid fa-quote-right ml-[5px] text-light"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}

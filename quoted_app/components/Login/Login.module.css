@@ -1,3 +1,13 @@
+div.landingFooter {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  background-color: #30aebe;
+}
+
 .custom-shape-divider-bottom-1689888671 {
   position: absolute;
   bottom: 0;

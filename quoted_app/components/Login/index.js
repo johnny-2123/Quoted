@@ -115,18 +115,32 @@ export default function Login() {
       >
         {!isLoggingIn ? "Login" : "Register"}
       </h2>
-      <div className={styles["custom-shape-divider-bottom-1689888671"]}>
-        <svg
-          data-name="Layer 1"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
+      <div
+        className={
+          "absolute bottom-0 bg-primaryLight w-[100%] py-5 text-white text-[1.5rem] flex justify-center items-center rounded-tr-[40%]"
+        }
+      >
+        <a
+          className={"mx-3"}
+          href={"https://github.com/johnny-2123/Quoted"}
+          target="_blank"
         >
-          <path
-            d="M741,116.23C291,117.43,0,27.57,0,6V120H1200V6C1200,27.93,1186.4,119.83,741,116.23Z"
-            className={styles["shape-fill"]}
-          ></path>
-        </svg>
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a
+          className={"mx-3"}
+          href={"https://www.linkedin.com/in/johnny-avila-0512aa164/"}
+          target="_blank"
+        >
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a
+          className={"mx-3 font-bold"}
+          href={"https://wellfound.com/profile/edit/overview"}
+          target="_blank"
+        >
+          W:
+        </a>
       </div>
     </div>
   );
