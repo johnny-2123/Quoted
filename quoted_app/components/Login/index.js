@@ -136,7 +136,7 @@ export default function Login() {
         </a>
         <a
           className={"mx-3 font-bold"}
-          href={"https://wellfound.com/profile/edit/overview"}
+          href={"https://wellfound.com/u/johnny-edgar-avila"}
           target="_blank"
         >
           W:
