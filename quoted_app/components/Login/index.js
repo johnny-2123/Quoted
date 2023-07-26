@@ -4,6 +4,7 @@ import { db } from "../../firebase";
 import { doc, setDoc, deleteField } from "firebase/firestore";
 import LandingHeader from "../LandingHeader";
 import Footer from "../Footer";
+import {motion} from "framer-motion"
 import styles from "./Login.module.css";
 
 export default function Login() {
@@ -64,7 +65,7 @@ export default function Login() {
   }
 
   return (
-    <div className="flex-1 text-xs sm:text-sm flex flex-col justify-center items-center gap-2 sm:gap-4 relative p-0">
+    <div className="flex-1 text-xs sm:text-sm flex flex-col justify-center items-center gap-2 sm:gap-4 relative p-0 overflow-y-overlay flex-grow">
       <LandingHeader />
       <h1 className="font-bold select-none text-4xl sm:text-2xl uppercase text-slate-800 border-t border-slate-500 pt-[1.75rem] w-[40%] text-center ">
         {isLoggingIn ? "Login" : "Register"}
@@ -142,6 +143,10 @@ export default function Login() {
           W:
         </a>
       </div>
+      <motion.img src='../../quoted_mobile.png' className="absolute h-[300px] w-auto bottom-[1.5rem] left-[3rem] drop-shadow-lg  md:hidden" alt="mobile phone with quoted app on screen"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 1, ease: "easeInOut", type: "spring"  }}/>
     </div>
   );
 }
