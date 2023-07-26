@@ -118,30 +118,45 @@ export default function Login() {
       </h2>
       <div
         className={
-          "absolute bottom-0 bg-primaryLight w-[100%] py-5 text-white text-[1.5rem] flex justify-center items-center rounded-tr-[40%]"
+          "absolute bottom-0 bg-primaryLight w-[100%] py-5 text-white text-[1.6rem] flex justify-center items-center rounded-tr-[40%]"
         }
       >
-        <a
+        <motion.a
           className={"mx-3"}
           href={"https://github.com/johnny-2123/Quoted"}
           target="_blank"
+          whileHover={{
+            scale: .9, transition: {
+              duration: 0.1, ease:"easeInOut" }
+          }
+          }
         >
           <i class="fa-brands fa-github"></i>
-        </a>
-        <a
+        </motion.a>
+        <motion.a
           className={"mx-3"}
           href={"https://www.linkedin.com/in/johnny-avila-0512aa164/"}
           target="_blank"
+          whileHover={{
+            scale: .9, transition: {
+            duration: 0.1, ease:"easeInOut" }
+          }
+          }
         >
           <i class="fa-brands fa-linkedin"></i>
-        </a>
-        <a
+        </motion.a>
+        <motion.a
           className={"mx-3 font-bold"}
           href={"https://wellfound.com/u/johnny-edgar-avila"}
           target="_blank"
+          whileHover={{
+            scale: .9, transition: {
+            duration: 0.1, ease:"easeInOut" }
+          }
+          }
         >
           W:
-        </a>
+        </motion.a>
       </div>
       <motion.img src='../../quoted_mobile.png' className="absolute h-[300px] w-auto bottom-[1.5rem] left-[3rem] drop-shadow-lg  md:hidden" alt="mobile phone with quoted app on screen"
       initial={{ opacity: 0, y: 20 }}
