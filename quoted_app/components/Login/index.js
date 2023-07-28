@@ -4,7 +4,7 @@ import { db } from "../../firebase";
 import { doc, setDoc, deleteField } from "firebase/firestore";
 import LandingHeader from "../LandingHeader";
 import Footer from "../Footer";
-import {motion} from "framer-motion"
+import { color, motion } from "framer-motion";
 import styles from "./Login.module.css";
 
 export default function Login() {
@@ -98,18 +98,20 @@ export default function Login() {
           className="outline-none text-slate-900 p-2 w-full max-w-[40ch] duration-300 border-b-2 border-solid border-white focus:border-cyan-300"
         />
       )}
-      <button
+      <motion.button
         onClick={submitHandler}
         className="w-full max-w-[40ch] border border-white border-solid uppercase py-2 duration-300 relative after:absolute after:top-0 after:right-full after:bg-light after:z-10 after:w-full after:h-full overflow-hidden hover:after:translate-x-full after:duration-300 hover:text-white rounded-[20px]"
+        whileTap={{ scale: 0.9 }}
       >
         <h2 className="relative z-20">SUBMIT</h2>
-      </button>
-      <button
+      </motion.button>
+      <motion.button
         onClick={handleDemoLogin}
         className="w-full max-w-[40ch] border border-white border-solid uppercase py-2 duration-300 relative after:absolute after:top-0 after:right-full after:bg-light after:z-10 after:w-full after:h-full overflow-hidden hover:after:translate-x-full after:duration-300 hover:text-white rounded-[20px]"
+        whileTap={{ scale: 0.9 }}
       >
         <h2 className="relative z-20">DEMO LOGIN</h2>
-      </button>
+      </motion.button>
       <h2
         className="duration-300 hover:scale-110 cursor-pointer"
         onClick={() => setIsLoggingIn(!isLoggingIn)}
@@ -118,50 +120,62 @@ export default function Login() {
       </h2>
       <div
         className={
-          "absolute bottom-0 bg-primaryLight w-[100%] py-5 text-white text-[1.6rem] flex justify-center items-center rounded-tr-[40%]"
+          "absolute bottom-0 bg-primaryLight w-[100%] py-5 text-white text-[2rem] flex justify-center items-center rounded-tr-[40%]"
         }
       >
         <motion.a
-          className={"mx-3"}
+          className={"mx-4"}
           href={"https://github.com/johnny-2123/Quoted"}
           target="_blank"
           whileHover={{
-            scale: .9, transition: {
-              duration: 0.1, ease:"easeInOut" }
-          }
-          }
+            scale: 1.2,
+            transition: {
+              duration: 0.1,
+            },
+          }}
         >
           <i class="fa-brands fa-github"></i>
         </motion.a>
         <motion.a
-          className={"mx-3"}
+          className={"mx-4"}
           href={"https://www.linkedin.com/in/johnny-avila-0512aa164/"}
           target="_blank"
           whileHover={{
-            scale: .9, transition: {
-            duration: 0.1, ease:"easeInOut" }
-          }
-          }
+            scale: 1.2,
+            transition: {
+              duration: 0.1,
+            },
+          }}
         >
           <i class="fa-brands fa-linkedin"></i>
         </motion.a>
         <motion.a
-          className={"mx-3 font-bold"}
+          className={"mx-4 font-bold"}
           href={"https://wellfound.com/u/johnny-edgar-avila"}
           target="_blank"
           whileHover={{
-            scale: .9, transition: {
-            duration: 0.1, ease:"easeInOut" }
-          }
-          }
+            scale: 1.2,
+            transition: {
+              duration: 0.1,
+            },
+          }}
         >
           W:
         </motion.a>
       </div>
-      <motion.img src='../../quoted_mobile.png' className="absolute h-[300px] w-auto bottom-[1.5rem] left-[3rem] drop-shadow-lg  md:hidden" alt="mobile phone with quoted app on screen"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 1, ease: "easeInOut", type: "spring"  }}/>
+      <motion.img
+        src="../../quoted_mobile.png"
+        className="absolute h-[300px] w-auto bottom-[1.5rem] left-[3rem] drop-shadow-lg  md:hidden"
+        alt="mobile phone with quoted app on screen"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.5,
+          delay: 1,
+          ease: "easeInOut",
+          type: "spring",
+        }}
+      />
     </div>
   );
 }
