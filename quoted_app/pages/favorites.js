@@ -4,6 +4,7 @@ import QuoteCard from "@/components/QuoteCard";
 import useGetFriendData from "@/hooks/useGetFriendData";
 import Modal from "@/components/Modal";
 import useUserData from "@/hooks/useUserData";
+import { motion, AnimatePresence } from "framer-motion";
 import useGetFavoritedQuotes from "@/hooks/useGetFavoritedQuotes";
 
 export default function Favorites() {
@@ -34,7 +35,17 @@ export default function Favorites() {
         Favorites
         <i className="fa-solid fa-star text-light ml-1"></i>
       </h1>
-      <div className="flex-grow overflow-y-scroll">{quoteCards}</div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          className="flex-grow overflow-y-scroll"
+          // initial={{ opacity: 0 }}
+          // animate={{ opacity: 1 }}
+          // exit={{ opacity: 0 }}
+          // transition={{ duration: 1 }}
+        >
+          {quoteCards}
+        </motion.div>
+      </AnimatePresence>
       {openModal && (
         <Modal
           setOpenModal={setOpenModal}

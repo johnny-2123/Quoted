@@ -13,7 +13,9 @@ import {
 import { toast, Slide } from "react-toastify";
 import Picker from "emoji-picker-react";
 import InputEmoji from "react-input-emoji";
+import { motion, AnimatePresence } from "framer-motion";
 import styles from "./AddEditQuote.module.css";
+
 export default function AddEditQuote({
   quoteId,
   setEditQuoteId,

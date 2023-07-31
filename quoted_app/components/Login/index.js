@@ -5,6 +5,7 @@ import { doc, setDoc, deleteField } from "firebase/firestore";
 import LandingHeader from "../LandingHeader";
 import Footer from "../Footer";
 import { color, motion } from "framer-motion";
+import Link from "next/link";
 import styles from "./Login.module.css";
 
 export default function Login() {
@@ -162,6 +163,13 @@ export default function Login() {
         >
           W:
         </motion.a>
+        {/* <Link
+          href={"/about"}
+          className="duration-300 hover:opacity-60 cursor-pointer text-white mx-3"
+          title="About"
+        >
+          About
+        </Link> */}
       </div>
       <motion.img
         src="../../quoted_mobile.png"
