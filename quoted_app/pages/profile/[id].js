@@ -6,6 +6,7 @@ import { getDoc, updateDoc, doc, deleteField } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../../context/AuthContext";
 import { toast, Slide } from "react-toastify";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ViewProfile() {
   const router = useRouter();
@@ -108,7 +109,13 @@ export default function ViewProfile() {
           </p>
         </div>
       </div>
-      <div className="flex-grow overflow-y-scroll">
+      <motion.div
+        className="flex-grow overflow-y-scroll"
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 15 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+      >
         {quoteCards.length > 0 ? (
           quoteCards
         ) : (
@@ -116,7 +123,7 @@ export default function ViewProfile() {
             This user hasn&apos;t posted any quotes yet.
           </p>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }
