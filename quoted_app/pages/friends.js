@@ -6,6 +6,7 @@ import Modal from "@/components/Modal";
 import useUserData from "@/hooks/useUserData";
 import Followers from "@/components/followers";
 import Following from "@/components/following";
+import { motion, AnimatePresence } from "framer-motion";
 
 const FollowingQuotesFeed = () => {
   const { currentUser } = useAuth();
@@ -62,7 +63,15 @@ const FollowingQuotesFeed = () => {
           </h2>
         </div>
       </div>
-      <div className="flex-grow overflow-y-scroll">{quoteCards}</div>
+      <motion.div
+        className="flex-grow overflow-y-scroll"
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 15 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+      >
+        {quoteCards}
+      </motion.div>
       {openModal && (
         <Modal
           setOpenModal={setOpenModal}

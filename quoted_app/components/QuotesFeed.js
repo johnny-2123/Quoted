@@ -7,6 +7,7 @@ import NewQuoteBtn from "./NewQuoteBtn";
 import Modal from "./Modal";
 import useQuotes from "@/hooks/useQuotes";
 import AddEditQuote from "./AddEditQuote";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function QuotesFeed() {
   const { currentUser } = useAuth();
@@ -53,7 +54,15 @@ export default function QuotesFeed() {
         Quoted <i className="fa-solid fa-quote-left text-dark mr-1"></i>
         <i className="fa-solid fa-quote-right text-light"></i>
       </h1>
-      <div className="flex-grow overflow-y-scroll">{quoteCards}</div>
+      <motion.div
+        className="flex-grow overflow-y-scroll"
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 15 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+      >
+        {quoteCards}
+      </motion.div>
       <NewQuoteBtn setOpenModal={setOpenModal} />
       {openModal && (
         <Modal

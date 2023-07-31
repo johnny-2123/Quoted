@@ -7,6 +7,7 @@ import useUserData from "@/hooks/useUserData";
 import EditUserForm from "@/components/EditUserForm";
 import AddEditQuote from "@/components/AddEditQuote";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function User() {
   const router = useRouter();
@@ -92,7 +93,13 @@ export default function User() {
           Logout
         </button>
       </div>
-      <div className="flex-grow overflow-y-scroll">
+      <motion.div
+        className="flex-grow overflow-y-scroll"
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 15 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+      >
         {quoteCards.length > 0 ? (
           quoteCards
         ) : (
@@ -100,7 +107,7 @@ export default function User() {
             You haven&apos;t posted any quotes yet :/
           </p>
         )}
-      </div>
+      </motion.div>
       {openModal && (
         <Modal
           setOpenModal={setOpenModal}

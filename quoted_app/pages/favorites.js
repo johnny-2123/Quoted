@@ -35,17 +35,15 @@ export default function Favorites() {
         Favorites
         <i className="fa-solid fa-star text-light ml-1"></i>
       </h1>
-      <AnimatePresence mode="wait">
-        <motion.div
-          className="flex-grow overflow-y-scroll"
-          // initial={{ opacity: 0 }}
-          // animate={{ opacity: 1 }}
-          // exit={{ opacity: 0 }}
-          // transition={{ duration: 1 }}
-        >
-          {quoteCards}
-        </motion.div>
-      </AnimatePresence>
+      <motion.div
+        className="flex-grow overflow-y-scroll"
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 15 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+      >
+        {quoteCards}
+      </motion.div>
       {openModal && (
         <Modal
           setOpenModal={setOpenModal}

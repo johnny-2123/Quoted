@@ -9,9 +9,9 @@ export default function Modal(props) {
     <AnimatePresence mode="wait">
       <motion.div
         className="fixed w-screen h-screen top-0 left-0 bg-white text-slate-900 flex flex-col z-50 text-lg sm:text-xl"
-        initial={{ x: "100vw" }}
-        animate={{ x: 0 }}
-        exit={{ x: "100vw" }}
+        initial={{ opacity: 0, x: "100vw" }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: "100vw" }}
         transition={{ duration: 0.3, type: "tween" }}
         key={"modal"}
       >
