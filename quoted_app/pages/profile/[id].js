@@ -110,7 +110,7 @@ export default function ViewProfile() {
             {friendUserData?.bio || "Bio"}
           </p>
         </div>
-        <div className="my-1 w-full text-end px-0 mx-0">
+        {/* <div className="my-1 w-full text-end px-0 mx-0">
           <button className="duration-300 hover: cursor-pointer text-light ">
             <i
               class="fa-solid fa-message ml-auto cursor-pointer duration-300 hover:opacity-70 text-md sm:text-lg mr-3"
@@ -119,7 +119,7 @@ export default function ViewProfile() {
               }}
             ></i>
           </button>
-        </div>
+        </div> */}
       </div>
       <motion.div
         className="flex-grow overflow-y-scroll"
