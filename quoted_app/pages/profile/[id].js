@@ -7,21 +7,23 @@ import { db } from "../../firebase";
 import { useAuth } from "../../context/AuthContext";
 import { toast, Slide } from "react-toastify";
 import { motion, AnimatePresence } from "framer-motion";
+import Modal from "@/components/Modal";
+import ChatFeed from "@/components/ChatFeed";
 
 export default function ViewProfile() {
   const router = useRouter();
-  // Get other user id from url
-  const { id: userId } = router.query;
-  console.log("userId", userId);
-  // Get other user data
-  const { userData, userQuotes } = useUserData(userId);
-  const [followingUser, setFollowingUser] = useState(false);
+  const { id: friendUserId } = router.query;
 
   const { currentUser } = useAuth();
+  const { userData } = useUserData(currentUser?.uid);
 
-  // console.log("userData", userData);
+  const { userData: friendUserData, userQuotes } = useUserData(friendUserId);
 
-  if (!userData) {
+  const [followingUser, setFollowingUser] = useState(false);
+
+  const [openModal, setOpenModal] = useState(false);
+
+  if (!friendUserData) {
     return <div>Loading...</div>;
   }
 
@@ -52,12 +54,12 @@ export default function ViewProfile() {
     if (!currentUser) return;
 
     const userRef = doc(db, "users", currentUser?.uid);
-    const friendUserRef = doc(db, "users", userId);
+    const friendUserRef = doc(db, "users", friendUserId);
 
     try {
       if (followingUser) {
         await updateDoc(userRef, {
-          [`following.${userId}`]: deleteField(),
+          [`following.${friendUserId}`]: deleteField(),
         });
 
         await updateDoc(friendUserRef, {
@@ -66,7 +68,7 @@ export default function ViewProfile() {
         setFollowingUser(false);
       } else {
         await updateDoc(userRef, {
-          [`following.${userId}`]: friendUserRef,
+          [`following.${friendUserId}`]: friendUserRef,
         });
 
         await updateDoc(friendUserRef, {
@@ -79,7 +81,7 @@ export default function ViewProfile() {
       console.log("error", error);
     } finally {
       notifyFriendStatusUpdate(
-        userData.userName,
+        friendUserData.userName,
         followingUser ? "unfollowed" : "followed"
       );
     }
@@ -90,7 +92,7 @@ export default function ViewProfile() {
       <div className="flex flex-col items-center gap-2 p-0 mb-2">
         <div className="w-full flex flex-row items-center">
           <img
-            src={userData?.profilePicture}
+            src={friendUserData?.profilePicture}
             className="rounded-full object-cover w-[3rem] h-[3rem]"
           />
           <i
@@ -102,11 +104,21 @@ export default function ViewProfile() {
         </div>
         <div className="flex flex-col items-start w-full text-xs sm:text-md xs:text-lg">
           <h1 className="text-sm lg:text-base font-bold">
-            {userData?.userName || "Username"}
+            {friendUserData?.userName || "Username"}
           </h1>
           <p className="text-sm lg:text-base text-slate-900">
-            {userData?.bio || "Bio"}
+            {friendUserData?.bio || "Bio"}
           </p>
+        </div>
+        <div className="my-1 w-full text-end px-0 mx-0">
+          <button className="duration-300 hover: cursor-pointer text-light ">
+            <i
+              class="fa-solid fa-message ml-auto cursor-pointer duration-300 hover:opacity-70 text-md sm:text-lg mr-3"
+              onClick={() => {
+                setOpenModal(true);
+              }}
+            ></i>
+          </button>
         </div>
       </div>
       <motion.div
@@ -124,6 +136,15 @@ export default function ViewProfile() {
           </p>
         )}
       </motion.div>
+      {openModal && (
+        <Modal
+          setOpenModal={setOpenModal}
+          contentComponent={ChatFeed}
+          title={`chat with ${friendUserData.userName}`}
+          userData={userData}
+          friendUserData={friendUserData}
+        />
+      )}
     </div>
   );
 }

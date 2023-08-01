@@ -9,8 +9,6 @@ import {
   docRef,
   documentId,
 } from "firebase/firestore";
-import { useAuth } from "@/context/AuthContext";
-import useUserData from "@/hooks/useUserData";
 
 const useGetFavoritedQuotes = (userData) => {
   const [favoritedQuoteUIDs, setFavoritedQuoteUIDs] = useState([]);

@@ -11,13 +11,10 @@ import { motion, AnimatePresence } from "framer-motion";
 const FollowingQuotesFeed = () => {
   const { currentUser } = useAuth();
   const { userData } = useUserData(currentUser?.uid);
-  // console.log("userData in friends page", userData);
   const { quotes, followerUserUIDs, folllowingUserUIDs } = useGetFriendData();
   const [openModal, setOpenModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
 
-  // console.log("followers in friends page", followerUserUIDs);
-  // console.log("following in friends page", folllowingUserUIDs);
 
   const openFollowingModal = () => {
     setModalContent("following");
